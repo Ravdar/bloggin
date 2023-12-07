@@ -1,0 +1,16 @@
+<h1>Is this article you were looking for?</h1>
+<img src="{{ article.image.url }}" id="article-image">
+<p>{{article.image}}</p>
+<p>{{article.image.url}}</p>
+<p>{{article.publication_date}}</p>
+<h1>{{article.title}}</h1>
+<p>{{article.body}}</p>
+{% for comment in comments %}
+<p>{{comment.author}}</p>
+<p>{{comment.text}}</p>
+{% endfor %}
+<form method="post">
+    {% csrf_token %}
+    {{comment_form}}
+    <button type="submit">Submit</button>
+</form>

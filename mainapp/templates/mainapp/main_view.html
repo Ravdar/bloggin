@@ -1,4 +1,4 @@
 <h1>Hello, this is main page</h1>
 {% for article in all_articles %}
-{{article.title}}
+<h1 id="article-titles"><a href="{% url 'mainapp:read_article_view' article.url %}">{{article.title}}</a></h1>
 {% endfor %}
