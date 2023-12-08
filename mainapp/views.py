@@ -7,7 +7,7 @@ from .forms import NewArticle, NewComment
 
 def main_view(request):
     all_articles = Article.objects.all()[::-1]
-    return render(request, "mainapp/main_view.html", {"all_articles":all_articles})
+    return render(request, "mainapp/base.html", {"all_articles":all_articles})
 
 def read_article_view(request, article_url):
     article = get_object_or_404(Article, url=article_url)
@@ -38,8 +38,18 @@ def new_article_view(request):
         return render(request, "mainapp/new_article_view.html", {"form":form})
 
 
-
-# def edit_article_view(request):
+def edit_article_view(request, article_url):
+    article = get_object_or_404(Article, url=article_url)
+    if request.method =="POST":
+        form = NewArticle(request.POST, request.FILES, instance=article)
+        if form.is_valid():
+            article = form.save(commit=False)
+            article.last_edit_date = timezone.now()
+            article = form.save()
+            return HttpResponseRedirect(reverse("mainapp:read_article_view", args=(article.url,)))
+    else:
+        form = NewArticle(instance=article)
+    return render(request, "mainapp/edit_article_view.html", {"form": form})
 
 # def user_profile_view(request, user_id):
 

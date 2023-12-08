@@ -1,0 +1,11 @@
+{% extends "mainapp/base.html" %}
+
+{% block content %}
+<h1>Hello, welcome on login page!</h1>
+<form method="post">
+    {% csrf_token %}
+    {{form}}
+    <button type="submit">Login</button>
+    <input type="hidden" name="next" value="{% url 'mainapp:main_view'%}" />
+</form>
+{% endblock content %}

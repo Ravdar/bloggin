@@ -1,0 +1,9 @@
+{% extends "mainapp/base.html" %}
+
+{% block content %}<h1>Hello, welcome on register page!</h1>
+<form method="post">
+    {% csrf_token %}
+    {{form}}
+    <button type="submit">Register</button>
+</form>
+{% endblock content %}
