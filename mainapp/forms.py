@@ -9,5 +9,5 @@ class NewArticle(forms.ModelForm):
 class NewComment(forms.ModelForm):
     class Meta:
         model = Comment
-        fields = ["author", "text"]
+        fields = ["text"]
         

@@ -1,9 +1,10 @@
 from django.db import models
 from django.utils.text import slugify
+from django.contrib.auth.models import User
 
 class Article(models.Model):
+    owner = models.ForeignKey(User, on_delete=models.CASCADE)
     title = models.CharField(max_length=200)
-    author = models.CharField(max_length=30)
     body = models.TextField()
     publication_date = models.DateField()
     last_edit_date = models.DateField(null=True, blank=True)
@@ -19,8 +20,8 @@ class Article(models.Model):
         super().save(*args, **kwargs)
 
 class Comment(models.Model):
+    owner = models.ForeignKey(User, on_delete=models.CASCADE)
     article = models.ForeignKey(Article, on_delete=models.CASCADE)
-    author = models.CharField(max_length=30)
     text = models.TextField()
     publication_date = models.DateField()
     last_edit_date = models.DateField(null=True, blank=True)

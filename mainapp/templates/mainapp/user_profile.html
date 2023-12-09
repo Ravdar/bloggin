@@ -1,0 +1,10 @@
+{{user.username}}
+<h3>Articles:</h3>
+{% for article in articles %}
+{{article.title}}
+{% endfor %}
+<br>
+<h3>Comments</h3>
+{% for comment in comments %}
+{{comment.text}}
+{% endfor %}

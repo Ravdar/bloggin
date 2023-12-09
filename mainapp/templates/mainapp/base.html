@@ -1,5 +1,13 @@
 <h1><a href="{% url 'mainapp:main_view' %}">bloggin</a></h1>
 <button><a href="{% url 'mainapp:new_article_view' %}">New article</a></button>
+{% if user.is_authenticated %}
+<p>Good to see you back, {{user.username}}.</p>
+<button><a href="{% url 'users:logout' %}">Log out</a></button>
+{% else %}
+<button><a href="{% url 'users:login' %}">Login</a></button>
+<button><a href="{% url 'users:register_view' %}">Register</a></button>
+{% endif %}
+
 
 {% block content %}
 {% for article in all_articles %}

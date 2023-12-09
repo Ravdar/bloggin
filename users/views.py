@@ -7,7 +7,7 @@ def register(request):
         if form.is_valid():
             new_user = form.save()
             # login(request, new_user)
-            return redirect("mainapp:main_view")
+            return redirect("users:login")
     else:
         form = UserCreationForm()
     return render(request, "registration/registration.html", {"form":form})
