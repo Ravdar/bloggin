@@ -1,4 +1,8 @@
+{% extends "mainapp/base.html" %}
+
+{% block content %}
 {{user.username}}
+<img src="{{ user.profile.profile_picture.url }}" id="profile-picture">
 <h3>Articles:</h3>
 {% for article in articles %}
 {{article.title}}
@@ -8,3 +12,4 @@
 {% for comment in comments %}
 {{comment.text}}
 {% endfor %}
+{% endblock content %}

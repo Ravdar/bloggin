@@ -11,6 +11,10 @@
 {% for comment in comments %}
 <p>{{comment.owner}}</p>
 <p>{{comment.text}}</p>
+<p>Upvote</p>
+<p>Downvote</p>
+<p>Reply></p>
+{% for subcomment in comment.subcomment}
 {% endfor %}
 <form method="post">
     {% csrf_token %}

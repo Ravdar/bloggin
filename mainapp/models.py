@@ -26,5 +26,14 @@ class Comment(models.Model):
     publication_date = models.DateField()
     last_edit_date = models.DateField(null=True, blank=True)
 
+class Subcomments(models.Model):
+    owner = models.ForeignKey(User, on_delete=models.CASCADE)
+    comment = models.ForeignKey(Comment, on_delete=models.CASCADE)
+    text = models.TextField()
+    publication_date = models.DateField()
+    last_edit_date = models.DateField(null=True, blank=True)
+    
+    
+
     def ___str___(self):
         return self.text

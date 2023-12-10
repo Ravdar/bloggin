@@ -10,7 +10,8 @@ from .forms import NewArticle, NewComment
 
 def main_view(request):
     all_articles = Article.objects.all()[::-1]
-    return render(request, "mainapp/base.html", {"all_articles":all_articles})
+    top_articles = all_articles[:10]
+    return render(request, "mainapp/base.html", {"all_articles":all_articles, "top_articles":top_articles})
 
 # login required do dodawania komentarzy tylko
 def read_article_view(request, article_url):
