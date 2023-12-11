@@ -14,12 +14,14 @@ a {
 }
 
 a:hover {
-    color: grey
+    color: rgb(7, 139, 7);
 }
 
 #profile-picture {
     height: 40px;
     width: 40px;
+    border-radius: 50%;
+    margin-left: 14px;
 }
 
 .main-nav {
@@ -37,8 +39,16 @@ a:hover {
 .second-div {
     display: flex;
     flex-direction: column;
-    box-sizing: inherit;
     width: 950px;
+    border: 1px solid rgb(7, 139, 7);
+    border-radius: 1em;
+    padding: 20px 30px;
+    height: 650px
+}
+
+.grb {
+    border-left: 1px solid rgb(7, 139, 7);
+    width: 200px;
 }
 
 .nav-div-1 {
@@ -60,6 +70,8 @@ a:hover {
 .nav-div-3-1 {
     display: block;
     box-sizing: inherit;
+    justify-content: center;
+    align-items: center;
 }
 
 .nav-div-3-2 {
@@ -144,19 +156,28 @@ a:hover {
 .nav-button {
     display: inline-block;
     background-color: rgb(7, 139, 7);
-    padding: 5px 5px;
+    padding: 5px 10px;
     color: #ffffff;
     text-decoration: none;
     border-radius: 99em;
-    margin-right: 5px;
+}
+
+.mr {
+    margin-right: 14px;
+}
+
+.ml {
+    margin-left: 14px;
 }
 
 .nav-button:hover {
     background-color: rgb(9, 164, 9);
-    ;
+    color: white;
 }
 
 .logo {
     font-size: 40px;
     color: rgb(7, 139, 7);
+    justify-content: center;
+    align-items: center;
 }
