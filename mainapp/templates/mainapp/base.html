@@ -55,10 +55,10 @@
                 </div>
                 <a href="{% url 'mainapp:read_article_view' article.url %}"><img src="{{ article.image.url }}"
                         class="article-image-base"></a>
-                <h4 id="article-titles"><a
+                <h4 class="article-titles"><a
                         href="{% url 'mainapp:read_article_view' article.url %}">{{article.title}}</a>
                 </h4>
-                {{ article.body|slice:":100" }}...
+                {{ article.body|slice:":100"|safe }}...
             </div>
             {% endfor %}
         </div>

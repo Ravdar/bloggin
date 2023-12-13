@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "mainapp.apps.MainappConfig",
     "users.apps.UsersConfig",
+    "ckeditor",
+    "widget_tweaks",
 ]
 
 MIDDLEWARE = [

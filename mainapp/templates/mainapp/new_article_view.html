@@ -1,10 +1,24 @@
 {% extends "mainapp/base.html" %}
+{% load widget_tweaks %}
+
 
 {% block content %}
-<h1>Write a new article</h1>
-<form method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    {{form.as_p}}
-    <button type="submit">Submit</button>
-</form>
+<div class="main-div">
+    <div class="new-article">
+        <h1>Write a new article</h1>
+        &nbsp;
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{form.media}}
+            {{form.title|add_class:"form-control"|attr:"placeholder: Write a title for you article here"}}
+
+            {{form.body|add_class:"form-control"}}
+
+            {{form.image|add_class:"form-control"}}
+            <div style="display:flex;justify-content: center;margin-top: 25px;">
+                <button class=" nav-button " type=" submit">Submit</button>
+            </div>
+        </form>
+    </div>
+</div>
 {% endblock content %}

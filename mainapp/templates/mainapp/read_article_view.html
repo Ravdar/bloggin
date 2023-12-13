@@ -1,5 +1,7 @@
 {% extends "mainapp/base.html" %}
 
+<!-- Adding subcomments, upvotes, downvotes, links to the commenter profiles etc. -->
+
 {% block content %}
 <h1>Is this article you were looking for?</h1>
 {% if article.image %}
@@ -14,7 +16,7 @@
 <p>Upvote</p>
 <p>Downvote</p>
 <p>Reply></p>
-{% for subcomment in comment.subcomment}
+<!-- {% for subcomment in comment.subcomment} -->
 {% endfor %}
 <form method="post">
     {% csrf_token %}
