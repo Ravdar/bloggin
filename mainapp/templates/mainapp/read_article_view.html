@@ -1,30 +1,47 @@
 {% extends "mainapp/base.html" %}
-
+{% load widget_tweaks %}
 <!-- Adding subcomments, upvotes, downvotes, links to the commenter profiles etc. -->
 
 {% block content %}
-<h1>Is this article you were looking for?</h1>
-{% if article.image %}
-<img src="{{ article.image.url }}" id="article-image">
-{% endif %}
-<p>{{article.publication_date}}</p>
-<h1>{{article.title}}</h1>
-<p>{{article.body}}</p>
-{% for comment in comments %}
-<p>{{comment.owner}}</p>
-<p>{{comment.text}}</p>
-<p>Upvote</p>
-<p>Downvote</p>
-<p>Reply></p>
-<!-- {% for subcomment in comment.subcomment} -->
-{% endfor %}
-<form method="post">
-    {% csrf_token %}
-    {{comment_form}}
-    {% if user.is_authenticated %}
-    <button type="submit">Submit</button>
-    {% else %}
-    <p>You have to be logged to post comments.</p>
-    {% endif %}
-</form>
+<div class="main-div">
+    <div class="read-article-image">
+        {% if article.image %}
+        <img src="{{ article.image.url }}" class="read-article-image">
+        {% endif %}
+        <div class="pp-and-author-r">
+            <div class="ppaa">
+                <a href="{% url 'mainapp:user_profile' article.owner.username %}"><img
+                        src="{{article.owner.profile.profile_picture.url}}" class="profile-picture-mini"></a>
+                <a href="{% url 'mainapp:user_profile' article.owner.username %}">
+                    {{article.owner.username}}
+                </a>
+                {% if article.owner == user %}
+                &nbsp;
+                <a href="{% url 'mainapp:edit_article_view' article.url %}">Edit</a>
+                {% endif %}
+            </div>
+            <span class=" pub-date">{{article.publication_date}}</span>
+        </div>
+        <h1 style="font-size: 50px;">{{article.title}}</h1>
+        &nbsp;
+        <p>{{article.body|safe}}</p>
+        <form method="post">
+            {% csrf_token %}
+            {{comment_form.text|add_class:"form-control wid"|attr:"placeholder:What are your thoughts on this topic?"}}
+            {% if user.is_authenticated %}
+            <button class="nav-button" type="submit">Submit</button>
+            {% else %}
+            <p>You have to be logged to post comments.</p>
+            {% endif %}
+        </form>
+        {% for comment in comments %}
+        <p>{{comment.owner}}</p>
+        <p>{{comment.text}}</p>
+        <p>Upvote</p>
+        <p>Downvote</p>
+        <p>Reply></p>
+        <!-- {% for subcomment in comment.subcomment} -->
+        {% endfor %}
+    </div>
+</div>
 {% endblock content %}

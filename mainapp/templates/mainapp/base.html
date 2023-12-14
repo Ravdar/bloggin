@@ -46,19 +46,23 @@
             {% for article in all_articles %}
             <div class="article-class">
                 <div class="pp-and-author">
-                    <a href="{% url 'mainapp:user_profile' article.owner.username %}"><img
-                            src="{{article.owner.profile.profile_picture.url}}" class="profile-picture-mini"></a>
-                    <a href="{% url 'mainapp:user_profile' article.owner.username %}">
-                        <h6>{{article.owner.username}}</h6>
-                    </a>
+                    <div class="ppaa">
+                        <a href="{% url 'mainapp:user_profile' article.owner.username %}"><img
+                                src="{{article.owner.profile.profile_picture.url}}" class="profile-picture-mini"></a>
+                        <a href="{% url 'mainapp:user_profile' article.owner.username %}">
+                            <h6>{{article.owner.username}}</h6>
+                        </a>
+                    </div>
                     <span class=" pub-date">{{article.publication_date}}</span>
                 </div>
                 <a href="{% url 'mainapp:read_article_view' article.url %}"><img src="{{ article.image.url }}"
                         class="article-image-base"></a>
-                <h4 class="article-titles"><a
-                        href="{% url 'mainapp:read_article_view' article.url %}">{{article.title}}</a>
-                </h4>
-                {{ article.body|slice:":100"|safe }}...
+                <div style="width: 400px;">
+                    <h4 class="article-titles"><a
+                            href="{% url 'mainapp:read_article_view' article.url %}">{{article.title}}</a>
+                    </h4>
+                    {{ article.body|slice:":100"|safe }}...
+                </div>
             </div>
             {% endfor %}
         </div>
@@ -67,11 +71,14 @@
             {% for article in top_articles %}
             <div class="trending-article">
                 <div class="pp-and-author-trending">
-                    <a href="{% url 'mainapp:user_profile' article.owner.username %}"><img
-                            src="{{article.owner.profile.profile_picture.url}}" class="profile-picture-trending"></a>
-                    <a
-                        href="{% url 'mainapp:user_profile' article.owner.username %}"><span>{{article.owner.username}}</span></a>
-                    <span class="pub-date-2">{{article.publication_date}}</span>
+                    <div class="ppaa">
+                        <a href="{% url 'mainapp:user_profile' article.owner.username %}"><img
+                                src="{{article.owner.profile.profile_picture.url}}"
+                                class="profile-picture-trending"></a>
+                        <a
+                            href="{% url 'mainapp:user_profile' article.owner.username %}"><span>{{article.owner.username}}</span></a>
+                    </div>
+                    <span class="pub-date">{{article.publication_date}}</span>
                 </div>
                 <a href="{% url 'mainapp:read_article_view' article.url %}">
                     <h5>{{article.title}}</h5>

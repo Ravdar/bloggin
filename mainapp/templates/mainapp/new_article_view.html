@@ -10,10 +10,8 @@
         <form method="post" enctype="multipart/form-data">
             {% csrf_token %}
             {{form.media}}
-            {{form.title|add_class:"form-control"|attr:"placeholder: Write a title for you article here"}}
-
+            {{form.title|add_class:"form-control"|attr:"placeholder:Title"}}
             {{form.body|add_class:"form-control"}}
-
             {{form.image|add_class:"form-control"}}
             <div style="display:flex;justify-content: center;margin-top: 25px;">
                 <button class=" nav-button " type=" submit">Submit</button>

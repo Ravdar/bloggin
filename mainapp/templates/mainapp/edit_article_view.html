@@ -1,12 +1,23 @@
 {% extends "mainapp/base.html" %}
+{% load widget_tweaks %}
+
+
 
 {% block content %}
 
-<h1>Edit article</h1>
-<form method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    {{form.as_p}}
-    <button type="submit">Confirm changes</button>
-</form>
+<div class="main-div">
+    <div class="new-article">
+        <h1>Edit article</h1>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{form.media}}
+            {{form.title|add_class:"form-control"}}
+            {{form.body|add_class:"form-control"}}
+            <br></br>
+            {{form.image|add_class:"form-control"}}
+            <button class="nav-button" type="submit">Confirm changes</button>
+        </form>
+    </div>
+</div>
 
 {% endblock content %}
