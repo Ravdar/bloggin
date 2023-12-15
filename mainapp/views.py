@@ -23,7 +23,7 @@ def read_article_view(request, article_url):
             new_comment = form.save(commit=False)
             new_comment.publication_date = timezone.now()
             new_comment.article = article
-            new_comment.owner = request.owner
+            new_comment.owner = request.user
             new_comment = form.save()
             form = NewComment()
     else:
@@ -62,6 +62,17 @@ def edit_article_view(request, article_url):
 
 def user_profile(request, user_username):
     user = get_object_or_404(User, username = user_username)
-    articles= Article.objects.filter(owner=user)
-    comments= Comment.objects.filter(owner=user)
-    return render(request, "mainapp/user_profile.html", {"user":user, "articles":articles, "comments":comments})
+    activities = []
+    articles = Article.objects.filter(owner=user)
+    comments = Comment.objects.filter(owner=user)
+
+    # Merge articles and comments into a single list
+    for item in articles:
+        activities.append(item)
+
+    for item in comments:
+        activities.append(item)
+
+    # Sort activities by publication_date from newest to oldest
+    activities.sort(key=lambda activity: activity.publication_date, reverse=True)
+    return render(request, "mainapp/user_profile.html", {"user":user, "articles":articles, "comments":comments, "activities":activities})

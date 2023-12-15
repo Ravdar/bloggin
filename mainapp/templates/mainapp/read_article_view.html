@@ -25,23 +25,49 @@
         <h1 style="font-size: 50px;">{{article.title}}</h1>
         &nbsp;
         <p>{{article.body|safe}}</p>
+        &nbsp;
+        &nbsp;
         <form method="post">
             {% csrf_token %}
             {{comment_form.text|add_class:"form-control wid"|attr:"placeholder:What are your thoughts on this topic?"}}
             {% if user.is_authenticated %}
             <button class="nav-button" type="submit">Submit</button>
             {% else %}
-            <p>You have to be logged to post comments.</p>
+            <p>You have to be <span><a style="color:rgb(7, 139, 7)" href="{% url 'users:login' %}">logged</a></span> to
+                post comments.</p>
             {% endif %}
         </form>
+        &nbsp;
+        &nbsp;
         {% for comment in comments %}
-        <p>{{comment.owner}}</p>
-        <p>{{comment.text}}</p>
-        <p>Upvote</p>
-        <p>Downvote</p>
-        <p>Reply></p>
-        <!-- {% for subcomment in comment.subcomment} -->
+        <div class="comm">
+            <div class="pp-and-author-r">
+                <div class="ppaa">
+                    <a href="{% url 'mainapp:user_profile' comment.owner.username %}"><img
+                            src="{{article.owner.profile.profile_picture.url}}" class="profile-picture-mini"></a>
+                    <a href="{% url 'mainapp:user_profile' comment.owner.username %}">
+                        {{comment.owner.username}}
+                    </a>
+                    &nbsp;
+                    &nbsp;
+                    <span class=" pub-date">{{comment.publication_date}}</span>
+                </div>
+                {% if comment.owner == user %}
+                <a href="{% url 'mainapp:edit_article_view' article.url %}">Edit</a>
+                {% endif %}
+            </div>
+            <p>{{comment.text}}</p>
+            <div class="cmmatt">
+                <span>Upvote</span>
+                &nbsp;
+                <span>Downvote</span>
+                &nbsp;
+                <span>Reply</span>
+            </div>
+            <!-- {% for subcomment in comment.subcomment} -->
+        </div>
         {% endfor %}
     </div>
 </div>
+
 {% endblock content %}

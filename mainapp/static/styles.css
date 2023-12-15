@@ -85,6 +85,7 @@ a:hover {
     box-sizing: inherit;
     justify-content: center;
     align-items: center;
+    text-align: center;
 }
 
 .nav-div-3-2 {
@@ -265,4 +266,38 @@ a:hover {
 
 .article-title-r {
     font-size: 110px;
+}
+
+.comm {
+    border-bottom: 1px solid rgb(7, 139, 7);
+}
+
+.cmmatt {
+    display: flex;
+    justify-content: right;
+}
+
+.ovac {
+    margin-top: 50px;
+    margin-bottom: 50px;
+    justify-content: center;
+    display: flex;
+}
+
+.profile-view-picture {
+    border-radius: 50%;
+    height: 100px;
+    width: 100px;
+}
+
+.grbb {
+    border: 1px solid rgb(7, 139, 7);
+    border-radius: 1em;
+    height: fit-content;
+    margin-top: 120px;
+    padding: 20px
+}
+
+.profile-content {
+    width: 700px;
 }

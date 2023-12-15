@@ -1,15 +1,30 @@
 {% extends "mainapp/base.html" %}
 
 {% block content %}
-{{user.username}}
-<img src="{{ user.profile.profile_picture.url }}" id="profile-picture">
-<h3>Articles:</h3>
-{% for article in articles %}
-{{article.title}}
-{% endfor %}
-<br>
-<h3>Comments</h3>
-{% for comment in comments %}
-{{comment.text}}
-{% endfor %}
+<div class="main-div">
+    <div class="grbb">
+        <div class="profile-content">
+            <div class="nav-div-3-1">
+                <img src="{{ user.profile.profile_picture.url }}" class="profile-view-picture">
+                <h3>{{user.username}}</h3>
+            </div>
+            <div class="ovac">
+                &nbsp;
+                &nbsp;
+
+                <a class="nav-button" href="{% url 'mainapp:user_profile' user.username %}">Overview</a>
+                &nbsp;
+                <a class="topic-button" href="{% url 'mainapp:user_profile' user.username %}">Articles</a>
+                &nbsp;
+                <a class="topic-button" href="{% url 'mainapp:user_profile' user.username %}">Comments</a>
+            </div>
+            <h3>Acitivities:</h3>
+            {% for activity in activities %}
+            <div>
+                {{activity}}
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
 {% endblock content %}
