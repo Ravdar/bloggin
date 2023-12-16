@@ -11,6 +11,9 @@ class Article(models.Model):
     last_edit_date = models.DateField(null=True, blank=True)
     image = models.ImageField(null=True, blank=True, upload_to="images/")
     url = models.CharField(max_length=200, default='doesnotwork')
+    model_name = 'article'
+    upvotes = models.IntegerField(default=0)
+    downvotes = models.IntegerField(default=0)
 
     def __str__(self):
         return self.title
@@ -20,15 +23,18 @@ class Article(models.Model):
         self.url = slugify('-'.join(words).lower())
         super().save(*args, **kwargs)
 
+
 class Comment(models.Model):
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
     article = models.ForeignKey(Article, on_delete=models.CASCADE)
     text = models.TextField()
     publication_date = models.DateField()
     last_edit_date = models.DateField(null=True, blank=True)
+    model_name = 'comment'
 
     def __str__(self):
         return self.text
+    
 
 class Subcomments(models.Model):
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -36,8 +42,7 @@ class Subcomments(models.Model):
     text = models.TextField()
     publication_date = models.DateField()
     last_edit_date = models.DateField(null=True, blank=True)
-    
-    
+    model_name = 'comment'
 
     def ___str___(self):
         return self.text

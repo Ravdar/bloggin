@@ -18,10 +18,35 @@
                 &nbsp;
                 <a class="topic-button" href="{% url 'mainapp:user_profile' user.username %}">Comments</a>
             </div>
-            <h3>Acitivities:</h3>
             {% for activity in activities %}
-            <div>
-                {{activity}}
+            <div class="activity-class">
+                {% if activity.model_name == "article" %}
+                <div class="article-activity">
+                    <div>
+                        <span>{{activity.publication_date}}</span>
+                        <span>Added article:</span>
+                    </div>
+                    <div class="test">
+                        <a href="{% url 'mainapp:read_article_view' activity.url %}"><img src="{{ activity.image.url }}"
+                                class="article-image-profile"></a>
+                        <div>
+                            <h4 class="article-titles"><a
+                                    href="{% url 'mainapp:read_article_view' activity.url %}">{{activity.title}}</a>
+                            </h4>
+                            <p>{{ activity.body|slice:":200"|safe }}...</p>
+                        </div>
+                    </div>
+                </div>
+                {% else %}
+                <div class="comment-activity">
+                    <div style="margin-bottom: 15px;">
+                        {{activity.publication_date}}
+                        <span>Commented: <a href="{% url 'mainapp:read_article_view' activity.article.url %}">
+                                <span>{{activity.article.title}}</span></a></span>
+                    </div>
+                    {{activity}}
+                </div>
+                {% endif %}
             </div>
             {% endfor %}
         </div>

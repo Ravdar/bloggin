@@ -130,6 +130,15 @@ a:hover {
     margin-bottom: 4px;
 }
 
+.article-image-profile {
+    width: 200px;
+    height: 125px;
+    border-radius: 1em;
+    margin-bottom: 10px;
+    margin-right: 10px;
+    margin-top: 5px;
+}
+
 .profile-picture-mini {
     height: 25px;
     width: 25px;
@@ -300,4 +309,38 @@ a:hover {
 
 .profile-content {
     width: 700px;
+}
+
+.login-page-1 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+.login-page-2 {
+    margin: auto;
+    max-height: 100%;
+    max-width: 700px;
+    text-align: center;
+}
+
+.activity-class {
+    border-bottom: 1px solid rgb(7, 139, 7);
+    margin-top: 15px;
+    padding-bottom: 15px;
+}
+
+.article-activity {
+    display: flex;
+    flex-direction: column;
+}
+
+.comment-activity {
+    display: flex;
+    flex-direction: column;
+}
+
+.test {
+    display: flex;
 }

@@ -13,7 +13,7 @@
             <div class="nav-div-3-2">
             </div>
             <div class="nav-div-3-3">
-                {% if user.is_authenticated %}
+                {% if request.user.is_authenticated %}
                 <a class="nav-button mr" href="{% url 'mainapp:new_article_view' %}">New article</a>
                 <a href="{% url 'users:logout' %}">Log out</a>
                 <a href="{% url 'mainapp:user_profile' user.username %}"><img
