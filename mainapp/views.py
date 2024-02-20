@@ -6,14 +6,14 @@ from django.urls import reverse
 from django.http import Http404
 
 from .models import Article, Comment
-from .forms import NewArticle, NewComment
+from .forms import NewArticle, NewComment, NewSubcomment
 
 def main_view(request):
     all_articles = Article.objects.all()[::-1]
     top_articles = all_articles[:10]
     return render(request, "mainapp/base.html", {"all_articles":all_articles, "top_articles":top_articles})
 
-# login required do dodawania komentarzy tylko
+# login required only for adding comments
 def read_article_view(request, article_url):
     article = get_object_or_404(Article, url=article_url)
     comments = Comment.objects.filter(article=article)
@@ -25,10 +25,12 @@ def read_article_view(request, article_url):
             new_comment.article = article
             new_comment.owner = request.user
             new_comment = form.save()
-            form = NewComment()
+            comment_form = NewComment()
+            subcomment_form = NewSubcomment()
     else:
-        form = NewComment()
-    return render(request, "mainapp/read_article_view.html", {"article":article, "comments":comments, "comment_form":form})
+        comment_form = NewComment()
+        subcomment_form = NewSubcomment()
+    return render(request, "mainapp/read_article_view.html", {"article":article, "comments":comments, "comment_form":comment_form, "subcomment_form":subcomment_form})
 
 @login_required
 def new_article_view(request):

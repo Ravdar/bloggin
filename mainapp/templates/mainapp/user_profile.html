@@ -18,12 +18,13 @@
                 &nbsp;
                 <a class="topic-button" href="{% url 'mainapp:user_profile' user.username %}">Comments</a>
             </div>
+            {% block user_profile_content %}
             {% for activity in activities %}
             <div class="activity-class">
                 {% if activity.model_name == "article" %}
                 <div class="article-activity">
                     <div>
-                        <span>{{activity.publication_date}}</span>
+                        <span style="font-size:10px; color: grey;">{{activity.publication_date}}</span>
                         <span>Added article:</span>
                     </div>
                     <div class="test">
@@ -40,7 +41,7 @@
                 {% else %}
                 <div class="comment-activity">
                     <div style="margin-bottom: 15px;">
-                        {{activity.publication_date}}
+                        <span style="font-size:10px; color: grey;">{{activity.publication_date}}</span>
                         <span>Commented: <a href="{% url 'mainapp:read_article_view' activity.article.url %}">
                                 <span>{{activity.article.title}}</span></a></span>
                     </div>
@@ -49,6 +50,7 @@
                 {% endif %}
             </div>
             {% endfor %}
+            {% endblock user_profile_content %}
         </div>
     </div>
 </div>

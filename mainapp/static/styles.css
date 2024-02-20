@@ -277,8 +277,19 @@ a:hover {
     font-size: 110px;
 }
 
-.comm {
+.comment {
+    display: flex;
+    flex-direction: column;
+}
+
+.main-comment {
     border-bottom: 1px solid rgb(7, 139, 7);
+    width: 100%;
+}
+
+.subcomment {
+    width: 75%;
+    align-self: flex-end;
 }
 
 .cmmatt {
@@ -343,4 +354,19 @@ a:hover {
 
 .test {
     display: flex;
+    align-items: center;
+}
+
+.vote-image {
+    height: 13px;
+    width: 13px;
+}
+
+.vote-div {
+    display: flex;
+    ;
+    align-items: center;
+    height: fit-content;
+    width: fit-content;
+    margin-left: 15px;
 }

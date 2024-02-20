@@ -58,9 +58,16 @@
                 <a href="{% url 'mainapp:read_article_view' article.url %}"><img src="{{ article.image.url }}"
                         class="article-image-base"></a>
                 <div style="width: 400px;">
-                    <h4 class="article-titles"><a
-                            href="{% url 'mainapp:read_article_view' article.url %}">{{article.title}}</a>
-                    </h4>
+                    <div class="test">
+                        <h4 class="article-titles"><a
+                                href="{% url 'mainapp:read_article_view' article.url %}">{{article.title}}</a>
+                        </h4>
+                        <div class="vote-div"><img class="vote-image" src="media\images\upvote.png">&nbsp;
+                            <span style="font-size: 15px">{{article.total_votes}}</span>&nbsp;
+                            <img class="vote-image" src="media\images\downvote.png">
+                        </div>
+                    </div>
+
                     {{ article.body|slice:":100"|safe }}...
                 </div>
             </div>
@@ -79,10 +86,14 @@
                             href="{% url 'mainapp:user_profile' article.owner.username %}"><span>{{article.owner.username}}</span></a>
                     </div>
                     <span class="pub-date">{{article.publication_date}}</span>
-                </div>
+                </div class="test">
                 <a href="{% url 'mainapp:read_article_view' article.url %}">
                     <h5>{{article.title}}</h5>
                 </a>
+                <div class="vote-div"><img class="vote-image" src="media\images\upvote.png">&nbsp;
+                    <span style="font-size: 15px">{{article.total_votes}}</span>&nbsp;
+                    <img class="vote-image" src="media\images\downvote.png">
+                </div>
             </div>
             {% endfor %}
         </div>

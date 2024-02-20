@@ -1,0 +1,24 @@
+{% extends "mainapp/user_profile.html" %}
+
+{% block user_profile_content %}
+{% for article in articles %}
+<div class="activity-class">
+    <div class="article-activity">
+        <div>
+            <span style="font-size:10px; color: grey;">{{activity.publication_date}}</span>
+            <span>Added article:</span>
+        </div>
+        <div class="test">
+            <a href="{% url 'mainapp:read_article_view' article.url %}"><img src="{{ article.image.url }}"
+                    class="article-image-profile"></a>
+            <div>
+                <h4 class="article-titles"><a
+                        href="{% url 'mainapp:read_article_view' article.url %}">{{article.title}}</a>
+                </h4>
+                <p>{{ article.body|slice:":200"|safe }}...</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endfor %}
+{% endblock user_profile_content %}

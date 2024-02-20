@@ -40,34 +40,85 @@
         &nbsp;
         &nbsp;
         {% for comment in comments %}
-        <div class="comm">
-            <div class="pp-and-author-r">
-                <div class="ppaa">
-                    <a href="{% url 'mainapp:user_profile' comment.owner.username %}"><img
-                            src="{{article.owner.profile.profile_picture.url}}" class="profile-picture-mini"></a>
-                    <a href="{% url 'mainapp:user_profile' comment.owner.username %}">
-                        {{comment.owner.username}}
-                    </a>
-                    &nbsp;
-                    &nbsp;
-                    <span class=" pub-date">{{comment.publication_date}}</span>
+        <div class="comment">
+            <div class="main-comment">
+                <div class="pp-and-author-r">
+                    <div class="ppaa">
+                        <a href="{% url 'mainapp:user_profile' comment.owner.username %}"><img
+                                src="{{article.owner.profile.profile_picture.url}}" class="profile-picture-mini"></a>
+                        <a href="{% url 'mainapp:user_profile' comment.owner.username %}">
+                            {{comment.owner.username}}
+                        </a>
+                        &nbsp;
+                        &nbsp;
+                        <span class=" pub-date">{{comment.publication_date}}</span>
+                    </div>
+                    {% if comment.owner == user %}
+                    <a href="{% url 'mainapp:edit_article_view' article.url %}">Edit</a>
+                    {% endif %}
                 </div>
-                {% if comment.owner == user %}
-                <a href="{% url 'mainapp:edit_article_view' article.url %}">Edit</a>
-                {% endif %}
+                <p>{{comment.text}}</p>
+                <div class="cmmatt">
+                    <span>Upvote</span>
+                    &nbsp;
+                    <span>Downvote</span>
+                    &nbsp;
+                    <span>Reply</span>
+                </div>
             </div>
-            <p>{{comment.text}}</p>
-            <div class="cmmatt">
-                <span>Upvote</span>
-                &nbsp;
-                <span>Downvote</span>
-                &nbsp;
-                <span>Reply</span>
+            {% for subcomment in comment.subcomments.all %}
+            <div class="subcomment">
+                <div class="pp-and-author-r">
+                    <div class="ppaa">
+                        <a href="{% url 'mainapp:user_profile' subcomment.owner.username %}"><img
+                                src="{{article.owner.profile.profile_picture.url}}" class="profile-picture-mini"></a>
+                        <a href="{% url 'mainapp:user_profile' subcomment.owner.username %}">
+                            {{subcomment.owner.username}}
+                        </a>
+                        &nbsp;
+                        &nbsp;
+                        <span class=" pub-date">{{subcomment.publication_date}}</span>
+                    </div>
+                    {% if subcomment.owner == user %}
+                    <a href="{% url 'mainapp:edit_article_view' article.url %}">Edit</a>
+                    {% endif %}
+                </div>
+                <p>{{subcomment.text}}</p>
+                <div class="cmmatt">
+                    <span>Upvote</span>
+                    &nbsp;
+                    <span>Downvote</span>
+                    &nbsp;
+                    <span onclick="displaySubcommentForm('{{ subcomment.id }}')">Reply</span>
+                </div>
+                <form id="subcomment-form{{ subcomment.id }}" method="post" style="display:none">
+                    {% csrf_token %}
+                    {{subcomment_form.text|add_class:"form-control wid"|attr:"placeholder:Answer"}}
+                    {% if user.is_authenticated %}
+                    <button class="nav-button" type="submit">Submit</button>
+                    {% else %}
+                    <p>You have to be <span><a style="color:rgb(7, 139, 7)"
+                                href="{% url 'users:login' %}">logged</a></span> to
+                        reply to comments.</p>
+                    {% endif %}
+                </form>
             </div>
-            <!-- {% for subcomment in comment.subcomment} -->
+            {% endfor %}
         </div>
         {% endfor %}
     </div>
 </div>
+
+
+<script>
+    function displaySubcommentForm(subcommentId) {
+        var form = document.getElementById("subcomment-form" + subcommentID);
+        if (form.style.display === "none") {
+            form.style.display = "block";
+        } else { form.style.display = "none" }
+    }
+</script>
+
+
 
 {% endblock content %}

@@ -1,8 +1,17 @@
 from django.contrib import admin
-from .models import Article, Comment
+from .models import Article, Comment, Subcomment
 from users.models import Profile
 
 admin.site.register(Article)
-admin.site.register(Comment)
 admin.site.register(Profile)
+
+class SubcommentInline(admin.TabularInline):
+    model = Subcomment
+    extra = 1
+
+@admin.register(Comment)
+class CommentAdmin(admin.ModelAdmin):
+    inlines = [SubcommentInline]
+
+admin.site.register(Subcomment)
 # Register your models here.
