@@ -63,8 +63,19 @@
                     &nbsp;
                     <span>Downvote</span>
                     &nbsp;
-                    <span>Reply</span>
+                    <span onclick="displaySubcommentForm('{{ comment.id}}')">Reply</span>
                 </div>
+                <form id="subcomment-form{{ comment.id }}" class="subcomment-form" method="post" style="display:none">
+                    {% csrf_token %}
+                    {{subcomment_form.text|add_class:"form-control wid"|attr:"placeholder:Answer"}}
+                    {% if user.is_authenticated %}
+                    <button class="nav-button" type="submit">Submit</button>
+                    {% else %}
+                    <p>You have to be <span><a style="color:rgb(7, 139, 7)"
+                                href="{% url 'users:login' %}">logged</a></span> to
+                        reply to comments.</p>
+                    {% endif %}
+                </form>
             </div>
             {% for subcomment in comment.subcomments.all %}
             <div class="subcomment">
@@ -91,7 +102,8 @@
                     &nbsp;
                     <span onclick="displaySubcommentForm('{{ subcomment.id }}')">Reply</span>
                 </div>
-                <form id="subcomment-form{{ subcomment.id }}" method="post" style="display:none">
+                <form id="subcomment-form{{ subcomment.id }}" class="subcomment-form" method="post"
+                    style="display:none">
                     {% csrf_token %}
                     {{subcomment_form.text|add_class:"form-control wid"|attr:"placeholder:Answer"}}
                     {% if user.is_authenticated %}
@@ -112,8 +124,13 @@
 
 <script>
     function displaySubcommentForm(subcommentId) {
-        var form = document.getElementById("subcomment-form" + subcommentID);
+        var form = document.getElementById("subcomment-form" + subcommentId);
+        var allForms = document.querySelectorAll(".subcomment-form");
+        console.log("Clicked")
         if (form.style.display === "none") {
+            allForms.forEach(function (element) {
+                element.style.display = "none";
+            })
             form.style.display = "block";
         } else { form.style.display = "none" }
     }
