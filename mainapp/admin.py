@@ -1,9 +1,10 @@
 from django.contrib import admin
-from .models import Article, Comment, Subcomment
+from .models import Article, Comment, Subcomment, Topic
 from users.models import Profile
 
 admin.site.register(Article)
 admin.site.register(Profile)
+admin.site.register(Topic)
 
 class SubcommentInline(admin.TabularInline):
     model = Subcomment

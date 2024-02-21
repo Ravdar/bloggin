@@ -3,6 +3,14 @@ from django.utils.text import slugify
 from django.contrib.auth.models import User
 from ckeditor.fields import RichTextField
 
+
+class Topic(models.Model):
+    name=models.CharField(max_length=30)
+
+    def __str__(self):
+        return self.name
+
+
 class Article(models.Model):
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
     title = models.CharField(max_length=200)
@@ -11,10 +19,10 @@ class Article(models.Model):
     last_edit_date = models.DateField(null=True, blank=True)
     image = models.ImageField(null=True, blank=True, upload_to="images/")
     url = models.CharField(max_length=200, default='doesnotwork')
-    model_name = 'article'
     upvotes = models.IntegerField(default=0)
     downvotes = models.IntegerField(default=0)
     total_votes = models.IntegerField(default=0)
+    topics = models.ManyToManyField(Topic, blank=True)
 
     def __str__(self):
         return self.title
@@ -24,6 +32,11 @@ class Article(models.Model):
         self.url = slugify('-'.join(words).lower())
         self.total_votes = self.upvotes - self.downvotes
         super().save(*args, **kwargs)
+    
+    def update_total_votes(self):
+        self.upvotes = ArticleVote.objects.filter(article=self, is_upvote=True).count()
+        self.downvotes = ArticleVote.objects.filter(article=self, is_upvote=False).count()
+        self.save()
 
 class ArticleVote(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -54,7 +67,6 @@ class Comment(models.Model):
     text = models.TextField()
     publication_date = models.DateField()
     last_edit_date = models.DateField(null=True, blank=True)
-    model_name = 'comment'
 
     def __str__(self):
         return self.text
@@ -66,7 +78,8 @@ class Subcomment(models.Model):
     text = models.TextField()
     publication_date = models.DateField()
     last_edit_date = models.DateField(null=True, blank=True)
-    model_name = 'subcomment'
 
     def ___str___(self):
         return self.text
+    
+

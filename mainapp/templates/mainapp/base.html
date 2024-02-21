@@ -62,9 +62,17 @@
                         <h4 class="article-titles"><a
                                 href="{% url 'mainapp:read_article_view' article.url %}">{{article.title}}</a>
                         </h4>
-                        <div class="vote-div"><img class="vote-image" src="media\images\upvote.png">&nbsp;
-                            <span style="font-size: 15px">{{article.total_votes}}</span>&nbsp;
-                            <img class="vote-image" src="media\images\downvote.png">
+                        <div class="vote-div">
+                            {% if user.is_authenticated %}
+                            <img data-article-id="{{ article.id }}" id="upvote" class="vote-image upvote"
+                                src="media\images\upvote.png">&nbsp;
+                            {% endif %}
+                            <span id="article{{article.id}}"
+                                style="font-size: 15px">{{article.total_votes}}</span>&nbsp;
+                            {% if user.is_authenticated %}
+                            <img data-article-id="{{ article.id }}" id="downvote" class="vote-image downvote"
+                                src="media\images\downvote.png">
+                            {% endif %}
                         </div>
                     </div>
 
@@ -112,4 +120,33 @@
         <p class="text-center text-body-secondary">&copy; 2023 Company, Inc</p>
     </footer>
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        document.querySelectorAll('.upvote, .downvote').forEach(function (button) {
+            button.addEventListener('click', function () {
+                var articleId = this.getAttribute('data-article-id');
+                var isUpvote = this.classList.contains('upvote');
+                var xhr = new XMLHttpRequest();
+                xhr.open('POST', '/vote/', true);
+                xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                xhr.setRequestHeader('X-CSRFToken', '{{ csrf_token }}'); // Include the CSRF token directly
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState === XMLHttpRequest.DONE) {
+                        if (xhr.status === 200) {
+                            var data = JSON.parse(xhr.responseText);
+                            if (data.success) {
+                                // Update the vote count displayed on the page
+                                document.getElementById('article' + articleId).textContent = data.upvotes;
+                            }
+                        } else {
+                            console.error('Error:', xhr.status);
+                        }
+                    }
+                };
+                xhr.send('article_id=' + encodeURIComponent(articleId) + '&is_upvote=' + encodeURIComponent(isUpvote));
+            });
+        });
+    });
+</script>
 {% endblock content %}
