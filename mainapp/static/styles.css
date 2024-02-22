@@ -370,3 +370,7 @@ a:hover {
     width: fit-content;
     margin-left: 15px;
 }
+
+.available-topics {
+    display: none;
+}
