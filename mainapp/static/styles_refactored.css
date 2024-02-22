@@ -1,0 +1,50 @@
+/* VARIABLES */
+
+:root {
+    /* colors */
+    --MAIN-GREEN: rgb(7, 139, 7);
+}
+
+/* STANDARD RESET */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    color: black;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+    transition: border-color 0.1s ease;
+}
+
+
+header {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 2px solid var(--MAIN-GREEN);
+    position: fixed;
+    width: 100%;
+    align-items: end;
+    height: 50px;
+}
+
+header div {
+    height: 100%;
+    gap: 8px;
+}
+
+header img {
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+}
+
+/* MAIN PAGE STYLING */
+.logotype {
+    jus
+}

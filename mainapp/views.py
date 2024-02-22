@@ -3,15 +3,40 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.utils import timezone
 from django.urls import reverse
-from django.http import Http404
+from django.http import Http404, JsonResponse
 
-from .models import Article, Comment
+from .models import Article, Comment, ArticleVote
 from .forms import NewArticle, NewComment, NewSubcomment
 
 def main_view(request):
     all_articles = Article.objects.all()[::-1]
     top_articles = all_articles[:10]
-    return render(request, "mainapp/base.html", {"all_articles":all_articles, "top_articles":top_articles})
+    return render(request, "mainapp/main_refactor.html", {"all_articles":all_articles, "top_articles":top_articles})
+
+# Handling AJAX requests on articles votes
+def vote_article(request):
+    if request.method == 'POST' and request.is_ajax():
+        article_id = request.POST.get('article_id')
+        is_upvote = request.POST.get('is_upvote')
+        article = Article.objects.get(pk=article_id)
+        user = request.user
+
+        # Check if the user has already voted on this article
+        existing_vote = ArticleVote.objects.filter(user=user, article=article).first()
+        if existing_vote:
+            existing_vote.is_upvote = is_upvote
+            existing_vote.save()
+        else:
+            # Create a new vote
+            ArticleVote.objects.create(user=user, article=article, is_upvote=is_upvote)
+
+        # Update the article's vote count
+        article.update_total_votes()
+
+        # Return JSON response with updated vote counts
+        return JsonResponse({'success': True, 'upvotes': article.upvotes, 'downvotes': article.downvotes})
+    return JsonResponse({'success': False, 'error': 'Invalid request'})
+
 
 # login required only for adding comments
 def read_article_view(request, article_url):
