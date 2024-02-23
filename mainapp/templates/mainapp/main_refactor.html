@@ -13,20 +13,30 @@
 </head>
 
 <body>
-    <header>
-        <a href="{% url 'mainapp:main_view' %}" class="logotype">bloggin.</a>
-        <div class="header-buttons">
-            {% if request.user.is_authenticated %}
-            <a href="{% url 'mainapp:new_article_view' %}">New article</a>
-            <a href="{% url 'users:logout' %}">Log out</a>
-            <a href="{% url 'mainapp:user_profile' user.username %}"><img
-                    src="{{ user.profile.profile_picture.url }}"></a>
-            {% else %}
-            <a href="{% url 'users:login' %}">Login</a>
-            <a href="{% url 'users:register_view' %}">Register</a>
-            {% endif %}
+    <header class="center">
+        <div class="header-content">
+            <a href="{% url 'mainapp:main_view' %}" class="logotype">bloggin.</a>
+            <div class="header-buttons">
+                {% if request.user.is_authenticated %}
+                <button><a href="{% url 'mainapp:new_article_view' %}"></a>New article</button>
+                <a href="{% url 'users:logout' %}">Log out</a>
+                <a href="{% url 'mainapp:user_profile' user.username %}"><img
+                        src="{{ user.profile.profile_picture.url }}"></a>
+                {% else %}
+                <a href="{% url 'users:login' %}">Login</a>
+                <button><a href="{% url 'users:register_view' %}"></a>Register</button>
+                {% endif %}
+            </div>
         </div>
     </header>
+
+    <main>
+        <div class="topics">
+            {% for topic in topics %}
+            <button class="topic-button"><a href=""></a>{{topic.name}}</button>
+            {% endfor %}
+        </div>
+    </main>
 
 </body>
 

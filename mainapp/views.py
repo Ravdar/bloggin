@@ -5,13 +5,14 @@ from django.utils import timezone
 from django.urls import reverse
 from django.http import Http404, JsonResponse
 
-from .models import Article, Comment, ArticleVote
+from .models import Article, Comment, ArticleVote, Topic
 from .forms import NewArticle, NewComment, NewSubcomment
 
 def main_view(request):
     all_articles = Article.objects.all()[::-1]
     top_articles = all_articles[:10]
-    return render(request, "mainapp/main_refactor.html", {"all_articles":all_articles, "top_articles":top_articles})
+    topics = Topic.objects.all()
+    return render(request, "mainapp/main_refactor.html", {"all_articles":all_articles, "top_articles":top_articles, "topics":topics})
 
 # Handling AJAX requests on articles votes
 def vote_article(request):
