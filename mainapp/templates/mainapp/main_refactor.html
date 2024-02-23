@@ -8,8 +8,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="author" content="ravdar">
     <meta name="description" content="Main page for 'bloggin' website.">
-    <link rel="stylesheet" type="text/css" href="{% static 'styles_refactored.css' %}">
     <title>bloggin</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'styles_refactored.css' %}">
+    <script defer src="{% static 'main.js' %}"></script>
+
 </head>
 
 <body>
@@ -31,11 +33,22 @@
     </header>
 
     <main>
-        <div class="topics">
+        <section class="topics">
             {% for topic in topics %}
             <button class="topic-button"><a href=""></a>{{topic.name}}</button>
             {% endfor %}
-        </div>
+        </section>
+
+        <section class="trending-section">
+            <div class="trending-header center">
+                <h3>Trending articles</h3><button id="trending-button">+</button>
+            </div>
+            <div class="trending-articles">
+                {% for trending_article in top_articles %}
+                {{trending_article.title}}
+                {% endfor %}
+            </div>
+        </section>
     </main>
 
 </body>

@@ -49,6 +49,7 @@ button {
 
 button:hover {
     background-color: var(--LIGHT-GREEN);
+    cursor: pointer;
 }
 
 header {
@@ -133,6 +134,12 @@ main {
     color: var(--MAIN-GREEN);
     border-color: transparent;
     background-color: transparent;
+}
+
+.trending-articles {
+    overflow: hidden;
+    transition: 1s ease-in-out;
+    max-height: 0;
 }
 
 /* WIDE SCREENS */
