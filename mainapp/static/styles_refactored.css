@@ -64,6 +64,7 @@ header {
     width: 100%;
     min-height: 50px;
     background-color: white;
+    z-index: 1;
 }
 
 header button {
@@ -148,12 +149,12 @@ main {
 .trending-section {
     border: 1px solid var(--MAIN-GREEN);
     border-radius: 1em;
-    margin: 10px;
+    margin: 10px 0px;
+    padding: 10px;
 }
 
 .trending-header {
     gap: 10px;
-    margin: 10px 0px;
 }
 
 .trending-header h3 {
@@ -172,7 +173,6 @@ main {
     overflow: hidden;
     transition: 1s ease-in-out;
     max-height: 0;
-    padding: 0px;
     display: flex;
     flex-direction: column;
     gap: 20px;
@@ -206,10 +206,15 @@ main {
     margin: 10px 30px;
     display: grid;
     gap: 20px;
+    grid-template-columns: repeat(1, 1fr);
+    justify-items: center;
 }
 
 .article-info {
-    display: grid;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    max-width: 600px;
 }
 
 .article-info p {
@@ -217,9 +222,26 @@ main {
     font-size: 0.75em;
 }
 
-.article-picture {
-    border-radius: 1em;
+
+.article-picture-wrapper {
+    width: 100%;
+    height: 0;
+    padding-bottom: 65%;
+    position: relative;
+    overflow: hidden;
     margin-bottom: 5px;
+}
+
+.article-picture-wrapper img {
+    border-radius: 1em;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    position: absolute;
+    object-fit: cover;
+    z-index: -1;
+
 }
 
 /* WIDE SCREENS */
@@ -248,5 +270,29 @@ main {
 
     .topics {
         justify-content: center;
+    }
+
+    .trending-and-new-articles {
+        display: flex;
+        flex-direction: row-reverse;
+    }
+
+    .trending-section {
+        height: fit-content;
+        min-width: 300px;
+    }
+
+    .trending-button {
+        display: none;
+    }
+
+    .trending-articles {
+        max-height: 2000px;
+        margin: 15px 0px;
+    }
+
+    .new-articles {
+        grid-template-columns: repeat(2, 1fr);
+        justify-items: normal;
     }
 }
