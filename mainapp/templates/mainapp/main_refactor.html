@@ -22,7 +22,7 @@
                 {% if request.user.is_authenticated %}
                 <button><a href="{% url 'mainapp:new_article_view' %}"></a>New article</button>
                 <a href="{% url 'users:logout' %}">Log out</a>
-                <a href="{% url 'mainapp:user_profile' user.username %}"><img
+                <a href="{% url 'mainapp:user_profile' user.username %}"><img width="30" height="30" loading="lazy"
                         src="{{ user.profile.profile_picture.url }}"></a>
                 {% else %}
                 <a href="{% url 'users:login' %}">Login</a>
@@ -41,13 +41,42 @@
 
         <section class="trending-section">
             <div class="trending-header center">
-                <h3>Trending articles</h3><button id="trending-button">+</button>
+                <h3>Trending articles</h3><button class="trending-button">+</button>
             </div>
             <div class="trending-articles">
                 {% for trending_article in top_articles %}
-                {{trending_article.title}}
+                <div>
+                    <div class="author-and-date">
+                        <div class="author center"><a
+                                href="{% url 'mainapp:user_profile' trending_article.owner.username %}"><img
+                                    src="{{trending_article.owner.profile.profile_picture.url}}"
+                                    class="profile-picture-trending" height="20" width="20" loading="lazy"></a>
+                            <a
+                                href="{% url 'mainapp:user_profile' trending_article.owner.username %}">{{trending_article.owner.username}}</a>
+                        </div>{{trending_article.publication_date}}
+                    </div><a
+                        href="{% url 'mainapp:read_article_view' trending_article.url %}">{{trending_article.title}}</a>
+                </div>
                 {% endfor %}
             </div>
+        </section>
+
+        <section class="new-articles">
+            {% for article in all_articles %}
+            <div class="article-info">
+                <div class="author-and-date">
+                    <div class="author center"><a href="{% url 'mainapp:user_profile' article.owner.username %}"><img
+                                src="{{article.owner.profile.profile_picture.url}}"
+                                class="profile-picture-trending"></a>
+                        <a href="{% url 'mainapp:user_profile' article.owner.username %}">{{article.owner.username}}</a>
+                    </div>{{article.publication_date}}
+                </div><a href="{% url 'mainapp:read_article_view' article.url %}"><img src="{{ article.image.url }}"
+                        class="article-picture" width="330" height="200" loading="lazy"></a>
+                <h4><a href="{% url 'mainapp:read_article_view' article.url %}">{{article.title}}</a>
+                </h4>
+                <p>{{ article.body|slice:":100"|safe }}...</p>
+            </div>
+            {% endfor %}
         </section>
     </main>
 

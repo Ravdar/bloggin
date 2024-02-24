@@ -8,6 +8,7 @@
     --MAIN-FONT: sans-serif;
     /* size values */
     --PAGE-WIDTH: 1192px;
+    --PP-RADIUS: 50%
 }
 
 /* STANDARD RESET */
@@ -15,6 +16,11 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+}
+
+img {
+    display: block;
+    max-width: 100%;
 }
 
 html {
@@ -45,10 +51,10 @@ button {
     border-radius: 99em;
     padding: 10px;
     font-size: 1rem;
+    background-color: transparent;
 }
 
 button:hover {
-    background-color: var(--LIGHT-GREEN);
     cursor: pointer;
 }
 
@@ -56,7 +62,7 @@ header {
     border-bottom: 2px solid var(--MAIN-GREEN);
     position: fixed;
     width: 100%;
-    height: 50px;
+    min-height: 50px;
     background-color: white;
 }
 
@@ -64,6 +70,10 @@ header button {
     background-color: var(--MAIN-GREEN);
     border: none;
     color: white;
+}
+
+header button:hover {
+    background-color: var(--LIGHT-GREEN);
 }
 
 .center {
@@ -105,7 +115,7 @@ main {
 .header-content img {
     height: 30px;
     width: 30px;
-    border-radius: 50%;
+    border-radius: var(--PP-RADIUS);
 }
 
 .logotype {
@@ -119,7 +129,7 @@ main {
 }
 
 .topics {
-    overflow: scroll;
+    overflow: auto;
     display: flex;
     gap: 5px;
 }
@@ -133,13 +143,83 @@ main {
 .topic-button:hover {
     color: var(--MAIN-GREEN);
     border-color: transparent;
-    background-color: transparent;
+}
+
+.trending-section {
+    border: 1px solid var(--MAIN-GREEN);
+    border-radius: 1em;
+    margin: 10px;
+}
+
+.trending-header {
+    gap: 10px;
+    margin: 10px 0px;
+}
+
+.trending-header h3 {
+    font-weight: normal;
+}
+
+.trending-button {
+    border-radius: 5px;
+    min-height: 30px;
+    width: 30px;
+    padding: 0;
+    border: 1px solid grey;
 }
 
 .trending-articles {
     overflow: hidden;
     transition: 1s ease-in-out;
     max-height: 0;
+    padding: 0px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.author-and-date {
+    display: flex;
+    justify-content: space-between;
+    color: gray;
+    font-size: 0.75em;
+    margin-bottom: 5px;
+    align-items: center;
+}
+
+.author {
+    gap: 5px;
+}
+
+.author a {
+    color: gray;
+}
+
+.author img {
+    height: 20px;
+    width: 20px;
+    border-radius: var(--PP-RADIUS);
+    margin-top: 3px;
+}
+
+.new-articles {
+    margin: 10px 30px;
+    display: grid;
+    gap: 20px;
+}
+
+.article-info {
+    display: grid;
+}
+
+.article-info p {
+    color: gray;
+    font-size: 0.75em;
+}
+
+.article-picture {
+    border-radius: 1em;
+    margin-bottom: 5px;
 }
 
 /* WIDE SCREENS */
@@ -164,5 +244,9 @@ main {
     .header-content img {
         height: 40px;
         width: 40px;
+    }
+
+    .topics {
+        justify-content: center;
     }
 }
