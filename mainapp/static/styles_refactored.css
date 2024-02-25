@@ -58,6 +58,10 @@ button:hover {
     cursor: pointer;
 }
 
+.button-a {
+    color: white;
+}
+
 header {
     border-bottom: 2px solid var(--MAIN-GREEN);
     position: fixed;
@@ -127,7 +131,7 @@ main {
     font-family: var(--MAIN-FONT);
     position: absolute;
     left: 0;
-    bottom: -1px;
+    bottom: -5px;
 }
 
 .topics {
@@ -266,6 +270,44 @@ footer {
     margin-top: 50px;
 }
 
+/* LOGIN PAGE */
+.logotype-login {
+    font-size: 3rem;
+    color: var(--MAIN-GREEN);
+    font-family: var(--MAIN-FONT);
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+form button {
+    background-color: var(--MAIN-GREEN);
+    width: fit-content;
+    border: none;
+    color: white;
+}
+
+form button:hover {
+    background-color: var(--LIGHT-GREEN);
+}
+
+.form-control {
+    text-align: center;
+    border: 1px solid grey;
+    border-radius: 10px;
+    padding: 10px;
+    margin-bottom: 20px;
+}
+
+.form-control:focus {
+    border: 0.5px solid var(--MAIN-GREEN);
+    box-shadow: 0 0 0 0.5px var(--MAIN-GREEN);
+    outline: none;
+}
+
 /* WIDE SCREENS */
 
 @media screen and (min-width:1192px) {
@@ -279,6 +321,7 @@ footer {
 
     .logotype {
         font-size: 2.5rem;
+        bottom: -18px;
     }
 
     .header-content div {

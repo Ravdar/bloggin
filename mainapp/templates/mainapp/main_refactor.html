@@ -26,7 +26,7 @@
                         src="{{ user.profile.profile_picture.url }}"></a>
                 {% else %}
                 <a href="{% url 'users:login' %}">Login</a>
-                <button><a href="{% url 'users:register_view' %}"></a>Register</button>
+                <button><a class="button-a" href="{% url 'users:register_view' %}">Register</a></button>
                 {% endif %}
             </div>
         </div>
