@@ -20,7 +20,7 @@
             <a href="{% url 'mainapp:main_view' %}" class="logotype">bloggin.</a>
             <div class="header-buttons">
                 {% if request.user.is_authenticated %}
-                <button><a href="{% url 'mainapp:new_article_view' %}"></a>New article</button>
+                <button><a class="button-a" href="{% url 'mainapp:new_article_view' %}">New article</a></button>
                 <a href="{% url 'users:logout' %}">Log out</a>
                 <a href="{% url 'mainapp:user_profile' user.username %}"><img width="30" height="30" loading="lazy"
                         src="{{ user.profile.profile_picture.url }}"></a>
@@ -32,6 +32,7 @@
         </div>
     </header>
 
+    {% block content %}
     <main>
         <section class="topics">
             {% for topic in topics %}
@@ -86,6 +87,7 @@
             </section>
         </section>
     </main>
+    {% endblock content %}
 
     <footer class="center">
         &copy 2024 ravdar

@@ -70,7 +70,7 @@ def new_article_view(request):
             return HttpResponseRedirect(reverse("mainapp:read_article_view", args=(new_article.url,)))
     else:
         form=NewArticle()
-        return render(request, "mainapp/new_article_view.html", {"form":form})
+        return render(request, "mainapp/new_article_refactor.html", {"form":form})
 
 @login_required
 def edit_article_view(request, article_url):

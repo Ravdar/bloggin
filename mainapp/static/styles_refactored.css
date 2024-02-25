@@ -268,6 +268,8 @@ footer {
     color: white;
     font-size: 0.75em;
     margin-top: 50px;
+    position: sticky;
+    bottom: 0px;
 }
 
 /* LOGIN PAGE */
@@ -348,7 +350,7 @@ form button:hover {
         min-width: 300px;
         margin: 0;
         position: sticky;
-        top: 75px;
+        top: 85px;
     }
 
     .trending-button {
