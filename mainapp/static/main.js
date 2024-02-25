@@ -10,7 +10,7 @@ trendingArticlesButton.addEventListener("click", function () {
     }
     else {
         trendingArticlesContainer.style.maxHeight = "0";
-        trendingArticlesContainer.style.transition = " maxHeight0.5s ease-in-out";
+        trendingArticlesContainer.style.transition = " maxHeight 0.5s ease-in-out";
         console.log("hide"); trendingArticlesButton.textContent = "+";
     }
 })

@@ -81,6 +81,7 @@ header button:hover {
     display: flex;
     justify-content: center;
     align-items: center;
+    text-align: center;
 }
 
 main {
@@ -149,12 +150,17 @@ main {
 .trending-section {
     border: 1px solid var(--MAIN-GREEN);
     border-radius: 1em;
-    margin: 10px 0px;
+    margin: 10px;
     padding: 10px;
 }
 
 .trending-header {
     gap: 10px;
+    font-size: 1.5rem;
+    background-color: var(--MAIN-GREEN);
+    color: white;
+    border-radius: 99em;
+
 }
 
 .trending-header h3 {
@@ -163,10 +169,11 @@ main {
 
 .trending-button {
     border-radius: 5px;
-    min-height: 30px;
-    width: 30px;
+    min-height: 20px;
+    width: 20px;
     padding: 0;
-    border: 1px solid grey;
+    border: 1px solid white;
+    color: white;
 }
 
 .trending-articles {
@@ -207,7 +214,7 @@ main {
     display: grid;
     gap: 20px;
     grid-template-columns: repeat(1, 1fr);
-    justify-items: center;
+    justify-items: normal;
 }
 
 .article-info {
@@ -215,6 +222,12 @@ main {
     flex-direction: column;
     justify-content: flex-start;
     max-width: 600px;
+}
+
+.article-info h4 {
+    font-weight: normal;
+    font-size: 1.3em;
+    margin-bottom: 5px;
 }
 
 .article-info p {
@@ -242,6 +255,15 @@ main {
     object-fit: cover;
     z-index: -1;
 
+}
+
+footer {
+    background-color: var(--MAIN-GREEN);
+    min-height: 75px;
+    min-width: 100%;
+    color: white;
+    font-size: 0.75em;
+    margin-top: 50px;
 }
 
 /* WIDE SCREENS */
@@ -275,11 +297,15 @@ main {
     .trending-and-new-articles {
         display: flex;
         flex-direction: row-reverse;
+        margin-top: 30px;
     }
 
     .trending-section {
         height: fit-content;
         min-width: 300px;
+        margin: 0;
+        position: sticky;
+        top: 75px;
     }
 
     .trending-button {
@@ -293,6 +319,6 @@ main {
 
     .new-articles {
         grid-template-columns: repeat(2, 1fr);
-        justify-items: normal;
+        margin: 0 20px 0 0;
     }
 }
