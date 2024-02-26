@@ -164,6 +164,7 @@ main {
     background-color: var(--MAIN-GREEN);
     color: white;
     border-radius: 99em;
+    margin-bottom: 20px;
 
 }
 
@@ -171,7 +172,8 @@ main {
     font-weight: normal;
 }
 
-.trending-button {
+.trending-button,
+.topics-button {
     border-radius: 5px;
     min-height: 20px;
     width: 20px;
@@ -187,6 +189,7 @@ main {
     display: flex;
     flex-direction: column;
     gap: 20px;
+    padding: 15px;
 }
 
 .author-and-date {
@@ -268,11 +271,9 @@ footer {
     color: white;
     font-size: 0.75em;
     margin-top: 50px;
-    position: sticky;
-    bottom: 0px;
 }
 
-/* LOGIN PAGE */
+/* LOGIN AND REGISTER PAGES */
 .logotype-login {
     font-size: 3rem;
     color: var(--MAIN-GREEN);
@@ -304,11 +305,47 @@ form button:hover {
     margin-bottom: 20px;
 }
 
-.form-control:focus {
+.form-control:focus,
+.new-article-inputs:focus {
     border: 0.5px solid var(--MAIN-GREEN);
     box-shadow: 0 0 0 0.5px var(--MAIN-GREEN);
     outline: none;
 }
+
+/* NEW ARTICLE PAGE */
+
+.new-article-main {
+    flex-direction: column;
+    flex: 1;
+}
+
+.new-article-inputs {
+    text-align: center;
+    border: 1px solid gray;
+    border-radius: 10px;
+    padding: 10px;
+    margin-bottom: 5px;
+    width: 100%;
+}
+
+label {
+    font-size: 0.75em;
+}
+
+.available-topics {
+    text-align: left;
+    transition: all 0.3s ease-in-out;
+    max-height: 0;
+    overflow: hidden;
+    ;
+}
+
+.select-topics {
+    border: 1px solid var(--MAIN-GREEN);
+    border-radius: 10px;
+    padding: 10px;
+}
+
 
 /* WIDE SCREENS */
 
