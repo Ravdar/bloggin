@@ -313,7 +313,7 @@ form button:hover {
 
 /* NEW ARTICLE PAGE */
 
-.new-article-main {
+.margin-top-main {
     flex-direction: column;
     flex: 1;
     margin-top: 60px;
@@ -350,6 +350,60 @@ label {
     padding: 10px;
     margin: 10px 0;
 }
+
+/* USER PROFILE PAGE */
+.profile-basic-info {
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 50px;
+}
+
+.profile-basic-info img {
+    border-radius: var(--PP-RADIUS);
+    border: 1px solid var(--LIGHT-GREEN)
+}
+
+.profile-basic-info a {
+    margin-top: 10px;
+    font-weight: bold;
+    color: grey;
+    margin-right: 10px;
+}
+
+.user-activities {
+    margin: 0 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.user-activities div {
+    border: 1px solid var(--MAIN-GREEN);
+    border-radius: 10px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    align-items: center;
+}
+
+.user-activities time {
+    color: gray;
+    font-size: 0.75em;
+}
+
+.user-activities div p {
+    font-size: 0.75em;
+}
+
+.user-activities img {
+    border-radius: 10px;
+}
+
+
+
+
+
 
 
 /* WIDE SCREENS */
@@ -412,7 +466,7 @@ label {
 
     /* new article page */
 
-    .new-article-main {
+    .margin-top-main {
         margin-top: 10px;
     }
 }

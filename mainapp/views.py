@@ -5,7 +5,7 @@ from django.utils import timezone
 from django.urls import reverse
 from django.http import Http404, JsonResponse
 
-from .models import Article, Comment, ArticleVote, Topic
+from .models import Article, Comment, ArticleVote, Topic, Subcomment
 from .forms import NewArticle, NewComment, NewSubcomment
 
 def main_view(request):
@@ -93,6 +93,7 @@ def user_profile(request, user_username):
     activities = []
     articles = Article.objects.filter(owner=user)
     comments = Comment.objects.filter(owner=user)
+    subcomments = Subcomment.objects.filter(owner=user)
 
     # Merge articles and comments into a single list
     for item in articles:
@@ -101,6 +102,10 @@ def user_profile(request, user_username):
     for item in comments:
         activities.append(item)
 
+    for item in subcomments:
+        activities.append(item)
+
     # Sort activities by publication_date from newest to oldest
-    activities.sort(key=lambda activity: activity.publication_date, reverse=True)
-    return render(request, "mainapp/user_profile.html", {"user":user, "articles":articles, "comments":comments, "activities":activities})
+        if activities != []:
+            activities.sort(key=lambda activity: activity.publication_date, reverse=True)
+    return render(request, "mainapp/user_profile_refactored.html", {"user":user, "articles":articles, "comments":comments, "activities":activities})

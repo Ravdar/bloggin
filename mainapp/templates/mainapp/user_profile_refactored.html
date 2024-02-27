@@ -1,0 +1,32 @@
+{% extends "mainapp/main_refactor.html" %}
+
+{% block content %}
+
+<main class="margin-top-main center">
+    <section class="profile-basic-info center">
+        <img src="{{ user.profile.profile_picture.url}}" alt="Profile picture" height="80" width="80">
+        <h2>{{user.username}}</h2>
+        <div>
+            <a href="{% url 'mainapp:user_profile' user.username %}">Overview</a>
+            <a href="{% url 'mainapp:user_profile' user.username %}">Articles</a>
+            <a href="{% url 'mainapp:user_profile' user.username %}">Comments</a>
+        </div>
+    </section>
+    <section class="user-activities">
+        {% for activity in activities %}
+        <div class="activity-container">
+            {% if activity.model_name == "article" %}
+            <time>{{activity.publication_date}}</time>
+            <p>Posted article:</p>
+            <a href="{% url 'mainapp:read_article_view' activity.url %}"><img src="{{ activity.image.url }}" width="140"
+                    height="80"></a>
+            <h4><a href="{% url 'mainapp:read_article_view' activity.url %}">{{activity.title}}</a>
+            </h4>
+            <p>{{ activity.body|slice:":100"|safe }}...</p>
+            {% endif %}
+        </div>
+        {% endfor %}
+    </section>
+</main>
+
+{% endblock content %}
