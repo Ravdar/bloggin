@@ -164,7 +164,6 @@ main {
     background-color: var(--MAIN-GREEN);
     color: white;
     border-radius: 99em;
-    margin-bottom: 20px;
 
 }
 
@@ -189,7 +188,7 @@ main {
     display: flex;
     flex-direction: column;
     gap: 20px;
-    padding: 15px;
+    transition: max-height 0.5s ease-in-out;
 }
 
 .author-and-date {
@@ -317,6 +316,7 @@ form button:hover {
 .new-article-main {
     flex-direction: column;
     flex: 1;
+    margin-top: 60px;
 }
 
 .new-article-inputs {
@@ -328,13 +328,17 @@ form button:hover {
     width: 100%;
 }
 
+.image-and-topics-container {
+    display: grid;
+}
+
 label {
     font-size: 0.75em;
 }
 
 .available-topics {
     text-align: left;
-    transition: all 0.3s ease-in-out;
+    transition: max-height 0.5s ease-in-out;
     max-height: 0;
     overflow: hidden;
     ;
@@ -344,6 +348,7 @@ label {
     border: 1px solid var(--MAIN-GREEN);
     border-radius: 10px;
     padding: 10px;
+    margin: 10px 0;
 }
 
 
@@ -397,10 +402,17 @@ label {
     .trending-articles {
         max-height: 2000px;
         margin: 15px 0px;
+        padding: 15px;
     }
 
     .new-articles {
         grid-template-columns: repeat(2, 1fr);
         margin: 0 20px 0 0;
+    }
+
+    /* new article page */
+
+    .new-article-main {
+        margin-top: 10px;
     }
 }

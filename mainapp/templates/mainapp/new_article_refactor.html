@@ -4,7 +4,9 @@
 {% block content %}
 
 <main class="new-article-main center">
+    {% block header %}
     <h1>Write a new article</h1>
+    {% endblock header %}
     &nbsp;
     <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
@@ -12,15 +14,18 @@
         {{form.title|add_class:"new-article-inputs"|attr:"placeholder:Title"}}
         {{form.body|add_class:"new-article-inputs"}}
         &nbsp;
-        <label for="{{ form.image.id }}">Select article image</label>
-        {{form.image}}
-        <div class="select-topics"><label for="{{ form.topics.id }}">Select topics</label><button id="show-topics"
-                class="topics-button">+</button>
-            <div class="available-topics">
-                {{form.topics}}</div>
+        <div class="image-and-topics-container">
+            <label for="{{ form.image.id }}">Select article image</label>
+            {{form.image}}
+            <div class="select-topics"><label for="{{ form.topics.id }}">Select topics</label><button id="show-topics"
+                    class="topics-button" type="button">+</button>
+                <div class="available-topics">
+                    {{form.topics}}</div>
+            </div>
         </div>
-
+        {% block formbutton %}
         <button type="submit">Submit</button>
+        {% endblock formbutton %}
 
     </form>
 </main>
