@@ -118,9 +118,7 @@ main {
 
 }
 
-.header-content img {
-    height: 30px;
-    width: 30px;
+.profile-picture-radius {
     border-radius: var(--PP-RADIUS);
 }
 
@@ -208,11 +206,14 @@ main {
     color: gray;
 }
 
+.author a:hover {
+    color: var(--LIGHT-GREEN);
+}
+
 .author img {
     height: 20px;
     width: 20px;
     border-radius: var(--PP-RADIUS);
-    margin-top: 3px;
 }
 
 .new-articles {
@@ -403,6 +404,30 @@ label {
 .user-activities span {
     font-weight: bold;
     color: var(--MAIN-GREEN);
+}
+
+
+/* READ ARTICLE PAGE */
+
+.read-article-main {
+    margin-top: 70px;
+    flex-direction: column;
+    flex: 1;
+    max-width: 700px;
+}
+
+.subcomment-form {
+    display: none;
+}
+
+article {
+    text-align: left;
+    hyphens: auto;
+    margin-top: 10px;
+}
+
+article h1 {
+    font-size: 2em;
 }
 
 
