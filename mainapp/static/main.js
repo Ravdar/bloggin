@@ -35,5 +35,19 @@ if (showTopicsButton) {
     showTopicsButton.addEventListener("click", function () { showHideContainer(showTopicsButton, topicsContainer) })
 };
 
+// READ ARTICLE PAGE
+
+function displaySubcommentForm(subcommentId) {
+    var form = document.getElementById("subcomment-form" + subcommentId);
+    var allForms = document.querySelectorAll(".subcomment-form");
+    if (form.style.display === "none") {
+        allForms.forEach(function (element) {
+            element.style.display = "none";
+        })
+        form.style.display = "block";
+    } else { form.style.display = "none" }
+
+}
+
 
 

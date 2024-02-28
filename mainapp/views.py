@@ -56,7 +56,7 @@ def read_article_view(request, article_url):
     else:
         comment_form = NewComment()
         subcomment_form = NewSubcomment()
-    return render(request, "mainapp/read_article_view.html", {"article":article, "comments":comments, "comment_form":comment_form, "subcomment_form":subcomment_form})
+    return render(request, "mainapp/read_article_refactor.html", {"article":article, "comments":comments, "comment_form":comment_form, "subcomment_form":subcomment_form})
 
 @login_required
 def new_article_view(request):

@@ -14,7 +14,7 @@
     </section>
     <section class="user-activities">
         {% for activity in activities %}
-        <div class="activity-container">
+        <div>
             {% if activity.model_name == "article" %}
             <time>{{activity.publication_date}}</time>
             <p>Posted article:</p>
@@ -25,7 +25,9 @@
             <p>{{ activity.body|slice:":100"|safe }}...</p>
             {% else %}
             <time>{{activity.publication_date}}</time>
-            <p>Added comment to <span>{{ activity.article.title }}</span></p>
+            <p>Added comment to <a
+                    href="{% url 'mainapp:edit_article_view' activity.article.url %}"><span>{{activity.article.title}}</span></a>
+            </p>
             {{activity.text|slice:":100"|safe}}
             {% endif %}
         </div>

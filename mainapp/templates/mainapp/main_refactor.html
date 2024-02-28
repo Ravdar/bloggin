@@ -22,7 +22,8 @@
                 {% if request.user.is_authenticated %}
                 <button><a class="button-a" href="{% url 'mainapp:new_article_view' %}">New article</a></button>
                 <a href="{% url 'users:logout' %}">Log out</a>
-                <a href="{% url 'mainapp:user_profile' user.username %}"><img width="30" height="30" loading="lazy"
+                <a href="{% url 'mainapp:user_profile' user.username %}"><img class="profile-picture-radius" width="30"
+                        height="30" loading="lazy" alt="Profile picture"
                         src="{{ user.profile.profile_picture.url }}"></a>
                 {% else %}
                 <a href="{% url 'users:login' %}">Login</a>
@@ -53,7 +54,7 @@
                             <div class="author center"><a
                                     href="{% url 'mainapp:user_profile' trending_article.owner.username %}"><img
                                         src="{{trending_article.owner.profile.profile_picture.url}}"
-                                        class="profile-picture-trending" height="20" width="20" loading="lazy"></a>
+                                        alt="Profile picture" height="20" width="20" loading="lazy"></a>
                                 <a
                                     href="{% url 'mainapp:user_profile' trending_article.owner.username %}">{{trending_article.owner.username}}</a>
                             </div>{{trending_article.publication_date}}
@@ -70,15 +71,15 @@
                     <div class="author-and-date">
                         <div class="author center"><a
                                 href="{% url 'mainapp:user_profile' article.owner.username %}"><img
-                                    src="{{article.owner.profile.profile_picture.url}}"
-                                    class="profile-picture-trending"></a>
+                                    src="{{article.owner.profile.profile_picture.url}}" alt="Profile picture"
+                                    height="20" width="20"></a>
                             <a
                                 href="{% url 'mainapp:user_profile' article.owner.username %}">{{article.owner.username}}</a>
                         </div>{{article.publication_date}}
                     </div>
                     <div class="article-picture-wrapper"><a
                             href="{% url 'mainapp:read_article_view' article.url %}"><img src="{{ article.image.url }}"
-                                width="330" height="200" loading="lazy"></a></div>
+                                alt="Article image" width="330" height="200" loading="lazy"></a></div>
                     <h4><a href="{% url 'mainapp:read_article_view' article.url %}">{{article.title}}</a>
                     </h4>
                     <p>{{ article.body|slice:":100"|safe }}...</p>

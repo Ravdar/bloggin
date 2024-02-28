@@ -1,0 +1,116 @@
+{% extends "mainapp/main_refactor.html" %}
+{% load widget_tweaks %}
+
+{%block content %}
+<main class="read-article-main center">
+    <!-- Article display -->
+    <section class="article-display">
+        <img src="{{ article.image.url }}" alt="Article image">
+        <br>
+        <div class="author-and-date">
+            <div class="author center"><a href="{% url 'mainapp:user_profile' article.owner.username %}"><img
+                        src="{{article.owner.profile.profile_picture.url}}" alt="Profile picture" height="20"
+                        width="20"></a>
+                <a href="{% url 'mainapp:user_profile' article.owner.username %}">{{article.owner.username}}</a>
+                {% if article.owner == user %}
+                <a href="{% url 'mainapp:edit_article_view' article.url %}">Edit</a>
+                {% endif %}
+            </div>{{article.publication_date}}
+        </div>
+        <article>
+            <h1>{{article.title}}</h1>
+            &nbsp;
+            <p>{{article.body|safe}}</p>
+        </article>
+    </section>
+
+    <!-- Comments section -->
+    <section class="comments">
+        <!-- Add comment form -->
+        <form method="post">
+            {% csrf_token %}
+            {{comment_form.text|add_class:"form-control wid"|attr:"placeholder:What are your thoughts on this topic?"}}
+            {% if user.is_authenticated %}
+            <button type="submit">Submit</button>
+            {% else %}
+            <p>You have to be <span><a href="{% url 'users:login' %}">logged</a></span> to
+                post comments.</p>
+            {% endif %}
+        </form>
+        <!-- Displaying all comments -->
+        {% for comment in comments %}
+        <div class="comment-container">
+            <div class="author-and-date">
+                <div class="author center">
+                    <a href="{% url 'mainapp:user_profile' comment.owner.username %}"><img
+                            src="{{article.owner.profile.profile_picture.url}}" class="profile-picture-radius"
+                            width="20px" height="20px" loading="lazy" alt="Profile picture"></a>
+                    <a href="{% url 'mainapp:user_profile' comment.owner.username %}">
+                        {{comment.owner.username}}
+                    </a>
+                </div>
+                {{comment.publication_date}}
+            </div>
+            <br>
+            <p>{{comment.text}}</p>
+            <br>
+            <div class="comment-tools">
+                {% if comment.owner == user %}
+                <a href="{% url 'mainapp:edit_article_view' article.url %}">Edit</a>
+                {% endif %}
+                Upvote
+                Downvote
+                <button onclick="displaySubcommentForm('{{ comment.id }}')">Reply</button>
+            </div>
+            <!-- Subcomment form, displayed only after clicking "Reply" button -->
+            <form id="subcomment-form{{ comment.id }}" class="subcomment-form" method="post">
+                {% csrf_token %}
+                {{subcomment_form.text|add_class:"form-control wid"|attr:"placeholder:Answer"}}
+                {% if user.is_authenticated %}
+                <button type="submit">Submit</button>
+                {% else %}
+                <p>You have to be <span><a href="{% url 'users:login' %}">logged</a></span> to
+                    reply to comments.</p>
+                {% endif %}
+            </form>
+            <!-- All comment subcomments -->
+            {% for subcomment in comment.subcomments.all %}
+            <a href="{% url 'mainapp:user_profile' subcomment.owner.username %}"><img
+                    src="{{article.owner.profile.profile_picture.url}}" class="profile-picture-radius" width="20px"
+                    height="20px" loading="lazy" alt="Profile picture"></a>
+            <a href="{% url 'mainapp:user_profile' subcomment.owner.username %}">
+                {{subcomment.owner.username}}
+            </a>
+            {{subcomment.publication_date}}
+            {% if subcomment.owner == user %}
+            <a href="{% url 'mainapp:edit_article_view' article.url %}">Edit</a>
+            {% endif %}
+            <br>
+            <p>{{subcomment.text}}</p>
+            <br>
+            <div>
+                Upvote
+                Downvote
+                <button onclick="displaySubcommentForm('{{ subcomment.id }}')">Reply</button>
+            </div>
+            <!-- Subcomment form, displayed only after clicking "Reply" button -->
+            <form id="subcomment-form{{ comment.id }}" class="subcomment-form" method="post">
+                {% csrf_token %}
+                {{subcomment_form.text|add_class:"form-control wid"|attr:"placeholder:Answer"}}
+                {% if user.is_authenticated %}
+                <button type="submit">Submit</button>
+                {% else %}
+                <p>You have to be <span><a href="{% url 'users:login' %}">logged</a></span> to
+                    reply to comments.</p>
+                {% endif %}
+            </form>
+            {% endfor %}
+        </div>
+
+        {% endfor %}
+    </section>
+</main>
+
+
+
+{% endblock content %}
