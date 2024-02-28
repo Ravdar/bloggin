@@ -400,10 +400,10 @@ label {
     border-radius: 10px;
 }
 
-
-
-
-
+.user-activities span {
+    font-weight: bold;
+    color: var(--MAIN-GREEN);
+}
 
 
 /* WIDE SCREENS */

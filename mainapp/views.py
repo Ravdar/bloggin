@@ -106,6 +106,6 @@ def user_profile(request, user_username):
         activities.append(item)
 
     # Sort activities by publication_date from newest to oldest
-        if activities != []:
-            activities.sort(key=lambda activity: activity.publication_date, reverse=True)
+    if activities != []:
+        activities.sort(key=lambda activity: activity.publication_date, reverse=True)
     return render(request, "mainapp/user_profile_refactored.html", {"user":user, "articles":articles, "comments":comments, "activities":activities})
