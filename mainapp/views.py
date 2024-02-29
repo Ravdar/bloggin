@@ -1,4 +1,4 @@
-from django.shortcuts import render, HttpResponseRedirect, get_object_or_404
+from django.shortcuts import render, HttpResponseRedirect, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.utils import timezone
@@ -43,20 +43,46 @@ def vote_article(request):
 def read_article_view(request, article_url):
     article = get_object_or_404(Article, url=article_url)
     comments = Comment.objects.filter(article=article)
+
     if request.method == "POST":
-        form = NewComment(request.POST)
-        if form.is_valid():
-            new_comment = form.save(commit=False)
-            new_comment.publication_date = timezone.now()
-            new_comment.article = article
-            new_comment.owner = request.user
-            new_comment = form.save()
-            comment_form = NewComment()
-            subcomment_form = NewSubcomment()
+        comment_form = NewComment(request.POST)
+        subcomment_form = NewSubcomment(request.POST)
+        form_type = request.POST.get('form_type')
+        if form_type == 'comment_form':
+            if comment_form.is_valid():
+                new_comment = comment_form.save(commit=False)
+                new_comment.publication_date = timezone.now()
+                new_comment.article = article
+                new_comment.owner = request.user
+                new_comment.save()            
+        elif form_type == 'subcomment_form':
+            if subcomment_form.is_valid():
+                parent_comment_id = request.POST.get('parent_comment_id')
+                parent_comment = get_object_or_404(Comment, pk=parent_comment_id)
+                new_subcomment = subcomment_form.save(commit=False)
+                new_subcomment.publication_date = timezone.now()
+                new_subcomment.article = article
+                new_subcomment.owner = request.user
+                new_subcomment.parent_comment = parent_comment
+                new_subcomment.save()
+        comment_form = NewComment()
+        subcomment_form = NewSubcomment()
+        return render(request, "mainapp/read_article_refactor.html", {
+            "article": article,
+            "comments": comments,
+            "comment_form": comment_form,
+            "subcomment_form": subcomment_form
+        })
     else:
         comment_form = NewComment()
         subcomment_form = NewSubcomment()
-    return render(request, "mainapp/read_article_refactor.html", {"article":article, "comments":comments, "comment_form":comment_form, "subcomment_form":subcomment_form})
+
+    return render(request, "mainapp/read_article_refactor.html", {
+        "article": article,
+        "comments": comments,
+        "comment_form": comment_form,
+        "subcomment_form": subcomment_form
+    })
 
 @login_required
 def new_article_view(request):

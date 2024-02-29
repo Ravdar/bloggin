@@ -29,6 +29,7 @@
         <!-- Add comment form -->
         <form method="post">
             {% csrf_token %}
+            <input type="hidden" name="form_type" value="comment_form">
             {{comment_form.text|add_class:"form-control wid"|attr:"placeholder:What are your thoughts on this topic?"}}
             {% if user.is_authenticated %}
             <button type="submit">Submit</button>
@@ -36,6 +37,7 @@
             <p>You have to be <span><a href="{% url 'users:login' %}">logged</a></span> to
                 post comments.</p>
             {% endif %}
+            <br>
         </form>
         <!-- Displaying all comments -->
         {% for comment in comments %}
@@ -65,7 +67,9 @@
             <!-- Subcomment form, displayed only after clicking "Reply" button -->
             <form id="subcomment-form{{ comment.id }}" class="subcomment-form" method="post">
                 {% csrf_token %}
-                {{subcomment_form.text|add_class:"form-control wid"|attr:"placeholder:Answer"}}
+                <input type="hidden" name="form_type" value="subcomment_form">
+                <input type="hidden" name="parent_comment_id" value="{{ comment.id }}">
+                <textarea name="text" class="form-control wid" placeholder="Answer"></textarea>
                 {% if user.is_authenticated %}
                 <button type="submit">Submit</button>
                 {% else %}
@@ -75,42 +79,47 @@
             </form>
             <!-- All comment subcomments -->
             {% for subcomment in comment.subcomments.all %}
-            <a href="{% url 'mainapp:user_profile' subcomment.owner.username %}"><img
-                    src="{{article.owner.profile.profile_picture.url}}" class="profile-picture-radius" width="20px"
-                    height="20px" loading="lazy" alt="Profile picture"></a>
-            <a href="{% url 'mainapp:user_profile' subcomment.owner.username %}">
-                {{subcomment.owner.username}}
-            </a>
-            {{subcomment.publication_date}}
-            {% if subcomment.owner == user %}
-            <a href="{% url 'mainapp:edit_article_view' article.url %}">Edit</a>
-            {% endif %}
-            <br>
-            <p>{{subcomment.text}}</p>
-            <br>
-            <div>
-                Upvote
-                Downvote
-                <button onclick="displaySubcommentForm('{{ subcomment.id }}')">Reply</button>
+            <div class="comment-container">
+                <div class="author-and-date">
+                    <div class="author center">
+                        <a href="{% url 'mainapp:user_profile' subcomment.owner.username %}"><img
+                                src="{{article.owner.profile.profile_picture.url}}" class="profile-picture-radius"
+                                width="20px" height="20px" loading="lazy" alt="Profile picture"></a>
+                        <a href="{% url 'mainapp:user_profile' subcomment.owner.username %}">
+                            {{subcomment.owner.username}}
+                        </a>
+                    </div>
+                    {{subcomment.publication_date}}
+                </div>
+                <br>
+                <p>{{subcomment.text}}</p>
+                <br>
+                <div class="comment-tools">
+                    {% if subcomment.owner == user %}
+                    <a href="{% url 'mainapp:edit_article_view' article.url %}">Edit</a>
+                    {% endif %}
+                    Upvote
+                    Downvote
+                    <button onclick="displaySubcommentForm('{{ comment.id }}')">Reply</button>
+                </div>
+                <!-- Subcomment form, displayed only after clicking "Reply" button -->
+                <form id="subcomment-form{{ comment.id }}" class="subcomment-form" method="post">
+                    {% csrf_token %}
+                    <input type="hidden" name="form_type" value="subcomment_form">
+                    <input type="hidden" name="parent_comment_id" value="{{ comment.id }}">
+                    <textarea name="text" class="form-control wid" placeholder="Answer"></textarea>
+                    {% if user.is_authenticated %}
+                    <button type="submit">Submit</button>
+                    {% else %}
+                    <p>You have to be <span><a href="{% url 'users:login' %}">logged</a></span> to
+                        reply to comments.</p>
+                    {% endif %}
+                </form>
+                {% endfor %}
             </div>
-            <!-- Subcomment form, displayed only after clicking "Reply" button -->
-            <form id="subcomment-form{{ comment.id }}" class="subcomment-form" method="post">
-                {% csrf_token %}
-                {{subcomment_form.text|add_class:"form-control wid"|attr:"placeholder:Answer"}}
-                {% if user.is_authenticated %}
-                <button type="submit">Submit</button>
-                {% else %}
-                <p>You have to be <span><a href="{% url 'users:login' %}">logged</a></span> to
-                    reply to comments.</p>
-                {% endif %}
-            </form>
-            {% endfor %}
         </div>
-
         {% endfor %}
     </section>
 </main>
-
-
 
 {% endblock content %}
