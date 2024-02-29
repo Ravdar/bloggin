@@ -1,0 +1,101 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="ravdar">
+    <meta name="description" content="Main page for 'bloggin' website.">
+    <title>bloggin</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'styles_refactored.css' %}">
+    <script defer src="{% static 'main.js' %}"></script>
+
+</head>
+
+<body>
+    <header class="center">
+        <div class="header-content">
+            <a href="{% url 'mainapp:main_view' %}" class="logotype">bloggin.</a>
+            <div class="header-buttons">
+                {% if request.user.is_authenticated %}
+                <button><a class="button-a" href="{% url 'mainapp:new_article_view' %}">New article</a></button>
+                <a href="{% url 'users:logout' %}">Log out</a>
+                <a href="{% url 'mainapp:user_profile' user.username %}"><img class="profile-picture-radius" width="30"
+                        height="30" loading="lazy" alt="Profile picture"
+                        src="{{ user.profile.profile_picture.url }}"></a>
+                {% else %}
+                <a href="{% url 'users:login' %}">Login</a>
+                <button><a class="button-a" href="{% url 'users:register_view' %}">Register</a></button>
+                {% endif %}
+            </div>
+        </div>
+    </header>
+
+    {% block content %}
+    <main>
+        <section class="topics">
+            {% for topic in topics %}
+            <button class="topic-button"><a href=""></a>{{topic.name}}</button>
+            {% endfor %}
+        </section>
+
+        <!-- wrapper needed for responsive desing -->
+        <section class="trending-and-new-articles">
+            <section class="trending-section">
+                <div class="trending-header center">
+                    <h3>Trending articles</h3><button class="trending-button">+</button>
+                </div>
+                <div class="trending-articles">
+                    {% for trending_article in top_articles %}
+                    <div>
+                        <div class="author-and-date">
+                            <div class="author center"><a
+                                    href="{% url 'mainapp:user_profile' trending_article.owner.username %}"><img
+                                        src="{{trending_article.owner.profile.profile_picture.url}}"
+                                        alt="Profile picture" height="20" width="20" loading="lazy"></a>
+                                <a
+                                    href="{% url 'mainapp:user_profile' trending_article.owner.username %}">{{trending_article.owner.username}}</a>
+                            </div>{{trending_article.publication_date}}
+                        </div><a
+                            href="{% url 'mainapp:read_article_view' trending_article.url %}">{{trending_article.title}}</a>
+                    </div>
+                    {% endfor %}
+                </div>
+            </section>
+
+            <section class="new-articles">
+                {% for article in all_articles %}
+                <div class="article-info">
+                    <div class="author-and-date">
+                        <div class="author center"><a
+                                href="{% url 'mainapp:user_profile' article.owner.username %}"><img
+                                    src="{{article.owner.profile.profile_picture.url}}" alt="Profile picture"
+                                    height="20" width="20"></a>
+                            <a
+                                href="{% url 'mainapp:user_profile' article.owner.username %}">{{article.owner.username}}</a>
+                        </div>{{article.publication_date}}
+                    </div>
+                    <div class="article-picture-wrapper"><a
+                            href="{% url 'mainapp:read_article_view' article.url %}"><img src="{{ article.image.url }}"
+                                alt="Article image" width="330" height="200" loading="lazy"></a></div>
+                    <h4><a href="{% url 'mainapp:read_article_view' article.url %}">{{article.title}}</a>
+                    </h4>
+                    <p>{{ article.body|slice:":100"|safe }}...</p>
+                </div>
+                {% endfor %}
+            </section>
+        </section>
+    </main>
+    {% endblock content %}
+
+    <footer class="center">
+        &copy 2024 ravdar
+        <br>
+        All rights reserved
+    </footer>
+
+</body>
+
+</html>

@@ -1,21 +1,11 @@
-{% extends "mainapp/base.html" %}
+{% extends "mainapp/new_article_refactor.html" %}
 {% load widget_tweaks %}
 
-{% block content %}
 
-<div class="main-div">
-    <div class="new-article">
-        <h1>Edit article</h1>
-        <form method="post" enctype="multipart/form-data">
-            {% csrf_token %}
-            {{form.media}}
-            {{form.title|add_class:"form-control"}}
-            {{form.body|add_class:"form-control"}}
-            <br></br>
-            {{form.image|add_class:"form-control"}}
-            <button class="nav-button" type="submit">Confirm changes</button>
-        </form>
-    </div>
-</div>
+{% block header %}
+<h1>Edit article</h1>
+{% endblock header %}
 
-{% endblock content %}
+{% block formbutton %}
+<button type="submit">Confirm changes</button>
+{% endblock formbutton %}

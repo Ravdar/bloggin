@@ -1,36 +1,88 @@
-from django.shortcuts import render, HttpResponseRedirect, get_object_or_404
+from django.shortcuts import render, HttpResponseRedirect, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.utils import timezone
 from django.urls import reverse
-from django.http import Http404
+from django.http import Http404, JsonResponse
 
-from .models import Article, Comment
+from .models import Article, Comment, ArticleVote, Topic, Subcomment
 from .forms import NewArticle, NewComment, NewSubcomment
 
 def main_view(request):
     all_articles = Article.objects.all()[::-1]
     top_articles = all_articles[:10]
-    return render(request, "mainapp/base.html", {"all_articles":all_articles, "top_articles":top_articles})
+    topics = Topic.objects.all()
+    return render(request, "mainapp/main_refactor.html", {"all_articles":all_articles, "top_articles":top_articles, "topics":topics})
+
+# Handling AJAX requests on articles votes
+def vote_article(request):
+    if request.method == 'POST' and request.is_ajax():
+        article_id = request.POST.get('article_id')
+        is_upvote = request.POST.get('is_upvote')
+        article = Article.objects.get(pk=article_id)
+        user = request.user
+
+        # Check if the user has already voted on this article
+        existing_vote = ArticleVote.objects.filter(user=user, article=article).first()
+        if existing_vote:
+            existing_vote.is_upvote = is_upvote
+            existing_vote.save()
+        else:
+            # Create a new vote
+            ArticleVote.objects.create(user=user, article=article, is_upvote=is_upvote)
+
+        # Update the article's vote count
+        article.update_total_votes()
+
+        # Return JSON response with updated vote counts
+        return JsonResponse({'success': True, 'upvotes': article.upvotes, 'downvotes': article.downvotes})
+    return JsonResponse({'success': False, 'error': 'Invalid request'})
+
 
 # login required only for adding comments
 def read_article_view(request, article_url):
     article = get_object_or_404(Article, url=article_url)
     comments = Comment.objects.filter(article=article)
+
     if request.method == "POST":
-        form = NewComment(request.POST)
-        if form.is_valid():
-            new_comment = form.save(commit=False)
-            new_comment.publication_date = timezone.now()
-            new_comment.article = article
-            new_comment.owner = request.user
-            new_comment = form.save()
-            comment_form = NewComment()
-            subcomment_form = NewSubcomment()
+        comment_form = NewComment(request.POST)
+        subcomment_form = NewSubcomment(request.POST)
+        form_type = request.POST.get('form_type')
+        if form_type == 'comment_form':
+            if comment_form.is_valid():
+                new_comment = comment_form.save(commit=False)
+                new_comment.publication_date = timezone.now()
+                new_comment.article = article
+                new_comment.owner = request.user
+                new_comment.save()            
+        elif form_type == 'subcomment_form':
+            if subcomment_form.is_valid():
+                parent_comment_id = request.POST.get('parent_comment_id')
+                parent_comment = get_object_or_404(Comment, pk=parent_comment_id)
+                new_subcomment = subcomment_form.save(commit=False)
+                new_subcomment.publication_date = timezone.now()
+                new_subcomment.article = article
+                new_subcomment.owner = request.user
+                new_subcomment.parent_comment = parent_comment
+                new_subcomment.save()
+        comment_form = NewComment()
+        subcomment_form = NewSubcomment()
+        return render(request, "mainapp/read_article_refactor.html", {
+            "article": article,
+            "comments": comments,
+            "comment_form": comment_form,
+            "subcomment_form": subcomment_form
+        })
     else:
         comment_form = NewComment()
         subcomment_form = NewSubcomment()
-    return render(request, "mainapp/read_article_view.html", {"article":article, "comments":comments, "comment_form":comment_form, "subcomment_form":subcomment_form})
+
+    return render(request, "mainapp/read_article_refactor.html", {
+        "article": article,
+        "comments": comments,
+        "comment_form": comment_form,
+        "subcomment_form": subcomment_form
+    })
 
 @login_required
 def new_article_view(request):
@@ -44,7 +96,7 @@ def new_article_view(request):
             return HttpResponseRedirect(reverse("mainapp:read_article_view", args=(new_article.url,)))
     else:
         form=NewArticle()
-        return render(request, "mainapp/new_article_view.html", {"form":form})
+        return render(request, "mainapp/new_article_refactor.html", {"form":form})
 
 @login_required
 def edit_article_view(request, article_url):
@@ -67,6 +119,7 @@ def user_profile(request, user_username):
     activities = []
     articles = Article.objects.filter(owner=user)
     comments = Comment.objects.filter(owner=user)
+    subcomments = Subcomment.objects.filter(owner=user)
 
     # Merge articles and comments into a single list
     for item in articles:
@@ -75,6 +128,10 @@ def user_profile(request, user_username):
     for item in comments:
         activities.append(item)
 
+    for item in subcomments:
+        activities.append(item)
+
     # Sort activities by publication_date from newest to oldest
-    activities.sort(key=lambda activity: activity.publication_date, reverse=True)
-    return render(request, "mainapp/user_profile.html", {"user":user, "articles":articles, "comments":comments, "activities":activities})
+    if activities != []:
+        activities.sort(key=lambda activity: activity.publication_date, reverse=True)
+    return render(request, "mainapp/user_profile_refactored.html", {"user":user, "articles":articles, "comments":comments, "activities":activities})

@@ -23,6 +23,7 @@ class Article(models.Model):
     downvotes = models.IntegerField(default=0)
     total_votes = models.IntegerField(default=0)
     topics = models.ManyToManyField(Topic, blank=True)
+    model_name = "article"
 
     def __str__(self):
         return self.title
@@ -67,6 +68,7 @@ class Comment(models.Model):
     text = models.TextField()
     publication_date = models.DateField()
     last_edit_date = models.DateField(null=True, blank=True)
+    model_name = "comment"
 
     def __str__(self):
         return self.text
@@ -74,10 +76,12 @@ class Comment(models.Model):
 
 class Subcomment(models.Model):
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
+    article = models.ForeignKey(Article, on_delete=models.CASCADE)
     parent_comment = models.ForeignKey(Comment, related_name="subcomments", on_delete=models.CASCADE)
     text = models.TextField()
     publication_date = models.DateField()
     last_edit_date = models.DateField(null=True, blank=True)
+    model_name = "comment"
 
     def ___str___(self):
         return self.text
