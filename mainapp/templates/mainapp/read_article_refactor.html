@@ -79,7 +79,7 @@
             </form>
             <!-- All comment subcomments -->
             {% for subcomment in comment.subcomments.all %}
-            <div class="comment-container">
+            <div class="subcomment-container">
                 <div class="author-and-date">
                     <div class="author center">
                         <a href="{% url 'mainapp:user_profile' subcomment.owner.username %}"><img

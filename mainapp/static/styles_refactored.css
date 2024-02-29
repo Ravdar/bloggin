@@ -455,11 +455,17 @@ article p {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-.comment-container {
+.comment-container,
+.subcomment-container {
     border-radius: 10px;
-    border: 1px solid var(--MAIN-GREEN);
+    border: 1px solid var(--LIGHT-GREEN);
     text-align: left;
     padding: 10px;
+}
+
+.comment-container {
+    margin-bottom: 3px;
+    border: 2px solid var(--MAIN-GREEN);
 }
 
 .comment-tools {

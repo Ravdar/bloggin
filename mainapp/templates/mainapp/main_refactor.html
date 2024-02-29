@@ -12,6 +12,8 @@
     <link rel="stylesheet" type="text/css" href="{% static 'styles_refactored.css' %}">
     <script defer src="{% static 'main.js' %}"></script>
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
 </head>
 
 <body>
@@ -37,7 +39,7 @@
     <main>
         <section class="topics">
             {% for topic in topics %}
-            <button class="topic-button"><a href=""></a>{{topic.name}}</button>
+            <button class="topic-button" data-topic-name="{{ topic.name }}">{{topic.name}}</button>
             {% endfor %}
         </section>
 
@@ -65,7 +67,7 @@
                 </div>
             </section>
 
-            <section class="new-articles">
+            <section id="article-list" class="new-articles">
                 {% for article in all_articles %}
                 <div class="article-info">
                     <div class="author-and-date">
@@ -99,3 +101,30 @@
 </body>
 
 </html>
+
+
+<script>
+
+    function renderArticles(articles) {
+        var articleHTML = '';
+        for (var i = 0; i < articles.length; i++) {
+            articleHTML += '<article><h2><a href="' + articles[i].url + '">' + articles[i].title + '</a></h2>' +
+                '</article>';
+        }
+        return articleHTML;
+    }
+
+    $(document).ready(function () {
+        $('.topic-button').click(function () {
+            var topic = $(this).data('topic_name');
+            $.ajax({
+                url: '{% url "mainapp:filter_articles" %}',  // Replace with your view URL
+                method: 'GET',
+                data: { 'topic_name': topic },
+                success: function (response) {
+                    $('#article-list').html(renderArticles(response.articles));  // Render filtered articles
+                }
+            });
+        });
+    });
+</script>
