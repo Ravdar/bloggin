@@ -7,9 +7,13 @@
         <img src="{{ user.profile.profile_picture.url}}" alt="Profile picture" height="80" width="80">
         <h2>{{user.username}}</h2>
         <div>
-            <a href="{% url 'mainapp:user_profile' user.username %}">Overview</a>
-            <a href="{% url 'mainapp:user_profile' user.username %}">Articles</a>
-            <a href="{% url 'mainapp:user_profile' user.username %}">Comments</a>
+            <!-- Filter with AJAX request here -->
+            <a class="filter-button" href="{% url 'mainapp:user_profile' user.username %}"
+                data-user="{{user.username}}">Overview</a>
+            <a class="filter-button" href="{% url 'mainapp:user_profile' user.username %}"
+                data-user="{{user.username}}">Articles</a>
+            <a class="filter-button" href="{% url 'mainapp:user_profile' user.username %}"
+                data-user="{{user.username}}">Comments</a>
         </div>
     </section>
     <section class="user-activities">
@@ -26,7 +30,7 @@
             {% else %}
             <time>{{activity.publication_date}}</time>
             <p>Added comment to <a
-                    href="{% url 'mainapp:edit_article_view' activity.article.url %}"><span>{{activity.article.title}}</span></a>
+                    href="{% url 'mainapp:read_article_view' activity.article.url %}"><span>{{activity.article.title}}</span></a>
             </p>
             {{activity.text|slice:":100"|safe}}
             {% endif %}

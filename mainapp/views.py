@@ -12,13 +12,7 @@ def main_view(request):
     all_articles = Article.objects.all()[::-1]
     top_articles = all_articles[:10]
     topics = Topic.objects.all()
-    return render(request, "mainapp/main_refactor.html", {"all_articles":all_articles, "top_articles":top_articles, "topics":topics})
-
-def filter_articles(request):
-    topic_name = request.GET.get('topic_name')
-    articles = Article.objects.filter(topics=topic_name)
-    data = list(articles.values('id', 'title', 'url', 'publication_date', 'total_votes'))  # Include desired fields
-    return JsonResponse({'articles': data})
+    return render(request, "mainapp/main_refactor.html", {"all_articles": all_articles, "top_articles": top_articles, "topics": topics})
 
 # login required only for adding comments
 def read_article_view(request, article_url):
@@ -117,3 +111,14 @@ def user_profile(request, user_username):
     if activities != []:
         activities.sort(key=lambda activity: activity.publication_date, reverse=True)
     return render(request, "mainapp/user_profile_refactored.html", {"user":user, "articles":articles, "comments":comments, "activities":activities})
+
+def filter_activities(request):
+    # Logic to filter activities based on your requirements
+    user_username=request.GET['user_username']
+    user = get_object_or_404(User, username = user_username)
+    filtered_activities = Comment.objects.filter(owner=user)
+
+    # Serialize filtered_activities to JSON
+    data = [{"filtered_activities":filtered_activities}]
+
+    return JsonResponse(data, safe=False)
