@@ -1,4 +1,4 @@
-from django.shortcuts import render, HttpResponseRedirect, get_object_or_404, redirect
+from django.shortcuts import render, HttpResponseRedirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.utils import timezone
@@ -12,7 +12,7 @@ def main_view(request):
     all_articles = Article.objects.all()[::-1]
     top_articles = all_articles[:10]
     topics = Topic.objects.all()
-    return render(request, "mainapp/main_refactor.html", {"all_articles":all_articles, "top_articles":top_articles, "topics":topics})
+    return render(request, "mainapp/main.html", {"all_articles":all_articles, "top_articles":top_articles, "topics":topics})
 
 # Handling AJAX requests on articles votes
 def vote_article(request):
@@ -67,7 +67,7 @@ def read_article_view(request, article_url):
                 new_subcomment.save()
         comment_form = NewComment()
         subcomment_form = NewSubcomment()
-        return render(request, "mainapp/read_article_refactor.html", {
+        return render(request, "mainapp/read_article.html", {
             "article": article,
             "comments": comments,
             "comment_form": comment_form,
@@ -77,7 +77,7 @@ def read_article_view(request, article_url):
         comment_form = NewComment()
         subcomment_form = NewSubcomment()
 
-    return render(request, "mainapp/read_article_refactor.html", {
+    return render(request, "mainapp/read_article.html", {
         "article": article,
         "comments": comments,
         "comment_form": comment_form,
@@ -96,7 +96,7 @@ def new_article_view(request):
             return HttpResponseRedirect(reverse("mainapp:read_article_view", args=(new_article.url,)))
     else:
         form=NewArticle()
-        return render(request, "mainapp/new_article_refactor.html", {"form":form})
+        return render(request, "mainapp/new_article.html", {"form":form})
 
 @login_required
 def edit_article_view(request, article_url):
@@ -134,4 +134,4 @@ def user_profile(request, user_username):
     # Sort activities by publication_date from newest to oldest
     if activities != []:
         activities.sort(key=lambda activity: activity.publication_date, reverse=True)
-    return render(request, "mainapp/user_profile_refactored.html", {"user":user, "articles":articles, "comments":comments, "activities":activities})
+    return render(request, "mainapp/user_profile.html", {"user":user, "articles":articles, "comments":comments, "activities":activities})

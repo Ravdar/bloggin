@@ -1,57 +1,38 @@
-{% extends "mainapp/base.html" %}
+{% extends "mainapp/main_refactor.html" %}
 
 {% block content %}
-<div class="main-div">
-    <div class="grbb">
-        <div class="profile-content">
-            <div class="nav-div-3-1">
-                <img src="{{ user.profile.profile_picture.url }}" class="profile-view-picture">
-                <h3>{{user.username}}</h3>
-            </div>
-            <div class="ovac">
-                &nbsp;
-                &nbsp;
 
-                <a class="nav-button" href="{% url 'mainapp:user_profile' user.username %}">Overview</a>
-                &nbsp;
-                <a class="topic-button" href="{% url 'mainapp:user_profile' user.username %}">Articles</a>
-                &nbsp;
-                <a class="topic-button" href="{% url 'mainapp:user_profile' user.username %}">Comments</a>
-            </div>
-            {% block user_profile_content %}
-            {% for activity in activities %}
-            <div class="activity-class">
-                {% if activity.model_name == "article" %}
-                <div class="article-activity">
-                    <div>
-                        <span style="font-size:10px; color: grey;">{{activity.publication_date}}</span>
-                        <span>Added article:</span>
-                    </div>
-                    <div class="test">
-                        <a href="{% url 'mainapp:read_article_view' activity.url %}"><img src="{{ activity.image.url }}"
-                                class="article-image-profile"></a>
-                        <div>
-                            <h4 class="article-titles"><a
-                                    href="{% url 'mainapp:read_article_view' activity.url %}">{{activity.title}}</a>
-                            </h4>
-                            <p>{{ activity.body|slice:":200"|safe }}...</p>
-                        </div>
-                    </div>
-                </div>
-                {% else %}
-                <div class="comment-activity">
-                    <div style="margin-bottom: 15px;">
-                        <span style="font-size:10px; color: grey;">{{activity.publication_date}}</span>
-                        <span>Commented: <a href="{% url 'mainapp:read_article_view' activity.article.url %}">
-                                <span>{{activity.article.title}}</span></a></span>
-                    </div>
-                    {{activity}}
-                </div>
-                {% endif %}
-            </div>
-            {% endfor %}
-            {% endblock user_profile_content %}
+<main class="margin-top-main center">
+    <section class="profile-basic-info center">
+        <img src="{{ user.profile.profile_picture.url}}" alt="Profile picture" height="80" width="80">
+        <h2>{{user.username}}</h2>
+        <div>
+            <a href="{% url 'mainapp:user_profile' user.username %}">Overview</a>
+            <a href="{% url 'mainapp:user_profile' user.username %}">Articles</a>
+            <a href="{% url 'mainapp:user_profile' user.username %}">Comments</a>
         </div>
-    </div>
-</div>
+    </section>
+    <section class="user-activities">
+        {% for activity in activities %}
+        <div>
+            {% if activity.model_name == "article" %}
+            <time>{{activity.publication_date}}</time>
+            <p>Posted article:</p>
+            <a href="{% url 'mainapp:read_article_view' activity.url %}"><img src="{{ activity.image.url }}" width="140"
+                    height="80"></a>
+            <h4><a href="{% url 'mainapp:read_article_view' activity.url %}">{{activity.title}}</a>
+            </h4>
+            <p>{{ activity.body|slice:":100"|safe }}...</p>
+            {% else %}
+            <time>{{activity.publication_date}}</time>
+            <p>Added comment to <a
+                    href="{% url 'mainapp:edit_article_view' activity.article.url %}"><span>{{activity.article.title}}</span></a>
+            </p>
+            {{activity.text|slice:":100"|safe}}
+            {% endif %}
+        </div>
+        {% endfor %}
+    </section>
+</main>
+
 {% endblock content %}
