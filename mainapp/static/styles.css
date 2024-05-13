@@ -436,8 +436,8 @@ article h1 {
 
 article p {
     margin-bottom: 1em;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    line-height: 1.5em;
+    font-family: 'Georgia';
+    line-height: 2em;
 }
 
 .comments {
