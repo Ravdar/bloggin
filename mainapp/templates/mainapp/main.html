@@ -24,7 +24,7 @@
                 <a href="{% url 'users:logout' %}">Log out</a>
                 <a href="{% url 'mainapp:user_profile' user.username %}"><img class="profile-picture-radius" width="30"
                         height="30" loading="lazy" alt="Profile picture"
-                        src="{{ user.profile.profile_picture.url }}"></a>
+                        src="{{ request.user.profile.profile_picture.url }}"></a>
                 {% else %}
                 <a href="{% url 'users:login' %}">Login</a>
                 <button><a class="button-a" href="{% url 'users:register_view' %}">Register</a></button>
@@ -37,7 +37,7 @@
     <main>
         <section class="topics">
             {% for topic in topics %}
-            <button class="topic-button"><a href=""></a>{{topic.name}}</button>
+            <button class="topic-button">{{topic.name}}</button>
             {% endfor %}
         </section>
 

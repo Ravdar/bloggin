@@ -26,7 +26,7 @@
             {% else %}
             <time>{{activity.publication_date}}</time>
             <p>Added comment to <a
-                    href="{% url 'mainapp:edit_article_view' activity.article.url %}"><span>{{activity.article.title}}</span></a>
+                    href="{% url 'mainapp:read_article_view' activity.article.url %}"><span>{{activity.article.title}}</span></a>
             </p>
             {{activity.text|slice:":100"|safe}}
             {% endif %}

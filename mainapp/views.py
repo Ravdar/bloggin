@@ -12,7 +12,7 @@ def main_view(request):
     """Home page view, returns all articles ordered from the newest, list of top articles and available topics.
     """
     all_articles = Article.objects.all()[::-1]
-    top_articles = all_articles[:10]
+    top_articles = Article.objects.all()[:10]
     topics = Topic.objects.all()
     return render(request, "mainapp/main.html", {"all_articles":all_articles, "top_articles":top_articles, "topics":topics})
 
