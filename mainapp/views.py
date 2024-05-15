@@ -135,3 +135,9 @@ def user_profile(request, user_username):
     if activities != []:
         activities.sort(key=lambda activity: activity.publication_date, reverse=True)
     return render(request, "mainapp/user_profile.html", {"user":user, "articles":articles, "comments":comments, "activities":activities})
+
+
+def hello_visitor(request):
+    """View for no exisitng/upcoming functionalities and buttons."""
+
+    return render(request,"mainapp/hello_visitor.html", {})

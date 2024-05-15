@@ -482,6 +482,17 @@ article p {
     font-weight: bold;
 }
 
+/* Hello visitor */
+
+.hello-visitor {
+    flex-direction: column;
+    gap: 40px;
+    max-width: 600px;
+    text-align: left;
+    padding: 10px 20px;
+    display:flex;
+}
+
 /* WIDE SCREENS */
 
 @media screen and (min-width:1192px) {

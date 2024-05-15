@@ -37,7 +37,7 @@
     <main>
         <section class="topics">
             {% for topic in topics %}
-            <button class="topic-button">{{topic.name}}</button>
+            <a href="{% url 'mainapp:hello_visitor' %}"><button class="topic-button">{{topic.name}}</button></a>
             {% endfor %}
         </section>
 
