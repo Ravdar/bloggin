@@ -45,7 +45,7 @@
             <div class="author-and-date">
                 <div class="author center">
                     <a href="{% url 'mainapp:user_profile' comment.owner.username %}"><img
-                            src="{{article.owner.profile.profile_picture.url}}" class="profile-picture-radius"
+                            src="{{comment.owner.profile.profile_picture.url}}" class="profile-picture-radius"
                             width="20px" height="20px" loading="lazy" alt="Profile picture"></a>
                     <a href="{% url 'mainapp:user_profile' comment.owner.username %}">
                         {{comment.owner.username}}
@@ -83,7 +83,7 @@
                 <div class="author-and-date">
                     <div class="author center">
                         <a href="{% url 'mainapp:user_profile' subcomment.owner.username %}"><img
-                                src="{{article.owner.profile.profile_picture.url}}" class="profile-picture-radius"
+                                src="{{subcomment.owner.profile.profile_picture.url}}" class="profile-picture-radius"
                                 width="20px" height="20px" loading="lazy" alt="Profile picture"></a>
                         <a href="{% url 'mainapp:user_profile' subcomment.owner.username %}">
                             {{subcomment.owner.username}}
