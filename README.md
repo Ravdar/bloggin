@@ -3,7 +3,7 @@
 
 
 
-This application enables users to create accounts and compose articles, which are then displayed on the homepage. Users have the flexibility to style and format their text, add images, and further customize their content. Additionally, they can edit and delete their articles at any time. The platform also supports interactive engagement, allowing users to comment on the articles of others.
+bloggin is a Django application that allows users to create accounts and compose articles, which are then displayed on the homepage. Users have the flexibility to style and format their text, add images, and further customize their content. Additionally, they can edit and delete their articles at any time. The platform also supports interactive engagement, allowing users to comment on the articles of others.
 
 
 [bloggin-short-showcase (1).webm](https://github.com/Ravdar/bloggin/assets/97836782/84c13d45-4875-4642-8205-2a33ee2dbff8)
