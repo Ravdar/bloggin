@@ -26,13 +26,6 @@ Logged users can add comments under each article, they can also reply to other u
 ### 5. Checking other users profiles
 Users can check profiles of other users to follow their activity
 
-# Screenshots
-![bloggin-homepage](https://github.com/Ravdar/bloggin/assets/97836782/214be85b-d01b-49c7-84f0-35366463b779)
-![bloggin-article](https://github.com/Ravdar/bloggin/assets/97836782/e0474381-2219-4f93-be2d-851e92104bd9)
-![bloggin-![bloggin-new-article](https://github.com/Ravdar/bloggin/assets/97836782/c88505e4-2e89-466b-b918-50a61a92c101)
-profile](https://github.com/Ravdar/bloggin/assets/97836782/492abb04-b31e-49f1-a4fb-36ad23687ece)
-![bloggin-login](https://github.com/Ravdar/bloggin/assets/97836782/2c3765b5-0ecd-424f-afdf-73b8a9269021)
-
 # Techstack
 * Django
 * django.contrib.auth
@@ -40,6 +33,14 @@ profile](https://github.com/Ravdar/bloggin/assets/97836782/492abb04-b31e-49f1-a4
 * django forms
 * RichTextField
 * python decorators
+
+# Screenshots
+![bloggin-homepage](https://github.com/Ravdar/bloggin/assets/97836782/214be85b-d01b-49c7-84f0-35366463b779)
+![bloggin-article](https://github.com/Ravdar/bloggin/assets/97836782/e0474381-2219-4f93-be2d-851e92104bd9)
+![bloggin-![bloggin-new-article](https://github.com/Ravdar/bloggin/assets/97836782/c88505e4-2e89-466b-b918-50a61a92c101)
+profile](https://github.com/Ravdar/bloggin/assets/97836782/492abb04-b31e-49f1-a4fb-36ad23687ece)
+![bloggin-login](https://github.com/Ravdar/bloggin/assets/97836782/2c3765b5-0ecd-424f-afdf-73b8a9269021)
+
 
 # Installation
 1. Clone the repository:
