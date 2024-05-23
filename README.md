@@ -1,12 +1,13 @@
-# ![bloggin-icon](https://github.com/Ravdar/bloggin/assets/97836782/a34aef5d-7da2-4613-bd73-88fe9b6f50b1) bloggin - Blogging Platform
+#  ![movvie-icon](https://github.com/Ravdar/bloggin/assets/97836782/af6c0859-fe0a-4ac6-a2da-071de1cedf7b) movvie - AI movie recommender
 
 
 
 
-bloggin is a Django application that allows users to create accounts and compose articles, which are then displayed on the homepage. Users have the flexibility to style and format their text, add images, and further customize their content. Additionally, they can edit and delete their articles at any time. The platform also supports interactive engagement, allowing users to comment on the articles of others.
+
+movvie is web application developed using Django and integrated with the OpenAI API, that delivers personalized movie recommendations. Upon receiving a user's prompt, it suggests five curated films. Additionally, the application features a function to generate random movie selections. Each recommendation includes the movie’s poster, title, production year, TMDB rating, duration, streaming availability, and a concise description, utilizing data from TMDB and JustWatch APIs.
 
 
-[bloggin-short-showcase (1).webm](https://github.com/Ravdar/bloggin/assets/97836782/84c13d45-4875-4642-8205-2a33ee2dbff8)
+[bloggin Intro.webm](https://github.com/Ravdar/bloggin/assets/97836782/84c13d45-4875-4642-8205-2a33ee2dbff8)
 
 
 For a more detailed video with my commentary, click (video no added yet) [here.](https://www.youtube.com/watch?v=VewCNybNQKE)
