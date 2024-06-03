@@ -22,7 +22,10 @@
             <div class="header-buttons">
                 {% if request.user.is_authenticated %}
                 <button><a class="button-a" href="{% url 'mainapp:new_article_view' %}">New article</a></button>
-                <a href="{% url 'users:logout' %}">Log out</a>
+                <form action="{% url 'users:logout' %}" method="post">
+                    {% csrf_token %}
+                    <button class="logout-button" type="submit">Log out</button>
+                </form>
                 <a href="{% url 'mainapp:user_profile' user.username %}"><img class="profile-picture-radius" width="30"
                         height="30" loading="lazy" alt="Profile picture"
                         src="{{ request.user.profile.profile_picture.url }}"></a>
@@ -83,7 +86,7 @@
                                 alt="Article image" width="330" height="200" loading="lazy"></div></a>
                     <h4><a href="{% url 'mainapp:read_article_view' article.url %}">{{article.title}}</a>
                     </h4>
-                    <p>{{ article.body|slice:":100"|safe }}...</p>
+                    <p>{{ article.body|safe|slice:":100"}}...</p>
                 </div>
                 {% endfor %}
             </section>

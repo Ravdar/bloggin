@@ -36,13 +36,13 @@ body {
     align-items: center;
 }
 
-a {
+a, .logout-button {
     text-decoration: none;
     color: black;
     transition: border-color 0.1s ease;
 }
 
-a:hover {
+a:hover, .logout-button:hover {
     color: var(--MAIN-GREEN);
     cursor: pointer;
 }
@@ -318,6 +318,10 @@ form button:hover {
     box-shadow: 0 0 0 0.5px var(--MAIN-GREEN);
     outline: none;
 }
+
+.logout-button{background-color: white;}
+
+.logout-button:hover{background-color: white;}
 
 /* NEW ARTICLE PAGE */
 
