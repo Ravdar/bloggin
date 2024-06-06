@@ -9,7 +9,7 @@ bloggin is a Django application that allows users to create accounts and compose
 [bloggin Intro.webm](https://github.com/Ravdar/bloggin/assets/97836782/84c13d45-4875-4642-8205-2a33ee2dbff8)
 
 
-For a more detailed video with my commentary, click (video no added yet) [here.](https://www.youtube.com/watch?v=LvHkLwwYU04)
+For a more detailed video with my commentary, click [here.](https://www.youtube.com/watch?v=LvHkLwwYU04)
 
 # Features
 
